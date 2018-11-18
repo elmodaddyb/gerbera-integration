@@ -1,6 +1,6 @@
 # Dockerfile for Gerbera Ubuntu Development
 # Purpose: Create container and compile Gerbera source
-#          expose ports to run gerber runtime as a container
+#          expose ports to run gerbera runtime as a container
 # Created by: Eamonn Buss
 # Created on: 09/23/2017
 
