@@ -1,4 +1,6 @@
 # Dockerfile for Gerbera Ubuntu Development
+# Purpose: Create container and compile Gerbera source
+#          expose ports to run gerber runtime as a container
 # Created by: Eamonn Buss
 # Created on: 09/23/2017
 
@@ -29,6 +31,7 @@ RUN apt-get install -y autoconf \
   libtool \
   pkg-config \
   sudo \
+  unzip \
   wget
 
 ##--------------------------------------
@@ -83,6 +86,11 @@ RUN echo /usr/local/lib > /etc/ld.so.conf.d/gerbera-x86_64.conf
 RUN ldconfig
 
 ##--------------------------------------
+## Install Google Test
+##--------------------------------------
+RUN sh ../gerbera/scripts/install-googletest.sh
+
+##--------------------------------------
 ## Build & Install Gerbera
 ##--------------------------------------
 RUN cmake ../gerbera -DWITH_TESTS=1 -DWITH_MAGIC=1 -DWITH_MYSQL=0 -DWITH_CURL=1 -DWITH_JS=1 -DWITH_TAGLIB=1 -DWITH_AVCODEC=1 -DWITH_EXIF=1 -DWITH_LASTFM=0
@@ -107,5 +115,5 @@ USER gerbera
 ##--------------------------------------
 RUN gerbera --create-config > /home/gerbera/.config/gerbera/config.xml
 
-ENTRYPOINT ["/usr/local/bin/gerbera"]
+ENTRYPOINT ["/usr/local/bin/gerbera", "--debug"]
 EXPOSE 49152/tcp 1900/udp

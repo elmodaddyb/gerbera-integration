@@ -1,0 +1,4 @@
+# Dockerfile for Gerbera UI Test
+# Purpose: Run the UI tests to verify Gerbera Server container
+# Created by: Eamonn Buss
+# Created on: 11/18/2018

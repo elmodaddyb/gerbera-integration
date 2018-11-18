@@ -1,0 +1,33 @@
+# Dockerfile for Gerbera Media Volume
+# Purpose: Download test media to docker volume
+#          for later testing
+# Created by: Eamonn Buss
+# Created on: 11/18/2018
+
+##--------------------------------------
+## Start with ubuntu image as the base
+##--------------------------------------
+FROM ubuntu:latest
+
+##--------------------------------------
+## Enable Ubuntu Repositories
+##--------------------------------------
+RUN apt-get update
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository main
+RUN add-apt-repository universe
+RUN add-apt-repository restricted
+RUN add-apt-repository multiverse
+
+##--------------------------------------
+## Install downloading tools
+##--------------------------------------
+RUN apt-get install -y wget
+
+##--------------------------------------
+## Download example media to the volume
+##--------------------------------------
+RUN wget https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4 \
+  -P /gerbera-media/
+RUN wget https://sample-videos.com/audio/mp3/crowd-cheering.mp3 \
+  -P /gerbera-media/
