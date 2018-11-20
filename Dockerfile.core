@@ -115,5 +115,5 @@ USER gerbera
 ##--------------------------------------
 RUN gerbera --create-config > /home/gerbera/.config/gerbera/config.xml
 
-ENTRYPOINT ["/usr/local/bin/gerbera", "--debug"]
+ENTRYPOINT ["/usr/local/bin/gerbera"]
 EXPOSE 49152/tcp 1900/udp
