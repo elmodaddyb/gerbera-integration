@@ -23,9 +23,15 @@ suite(() => {
 
   describe('The Gerbera UI', () => {
 
-    beforeEach(async () => {
+    it('gets the disabled page to clear cookies', async () => {
       await driver.get(webServer + '/disabled.html');
+    });
+
+    it('deletes all cookies for a fresh start', async () => {
       await driver.manage().deleteAllCookies();
+    });
+
+    it('loads the home page', async () => {
       await loginPage.get(webServer + '/index.html');
     });
 
