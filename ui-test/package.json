@@ -4,7 +4,7 @@
   "description": "Gerbera UI Integration Test",
   "main": "index.js",
   "scripts": {
-    "test": "SELENIUM_BROWSER=chrome mocha --require babel-polyfill --require babel-register \"test/**.spec.js\""
+    "test": "sleep 15 && SELENIUM_BROWSER=chrome mocha --require babel-polyfill --require babel-register \"test/**.spec.js\""
   },
   "config": {
     "webserver": {
