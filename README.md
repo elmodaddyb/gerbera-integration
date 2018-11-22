@@ -24,3 +24,17 @@ $ docker build --no-cache -t elmodaddyb/gerbera-media -f Dockerfile.media .
 ```
 $ docker run -it --entrypoint /bin/bash elmodaddyb/gerbera-media
 ```
+
+### Run Docker Compose
+
+The docker compose generates all containers and starts up the system for
+integration test.
+
+* Builds the **gerbera-core** container
+* Builds the **gerbera-ui-test** container
+* Builds the **gerbera-media** container
+* Builds the **gerbera-upnp** container
+
+```
+$ docker-compose up
+```

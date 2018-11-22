@@ -5,8 +5,10 @@ services:
       context: .
       dockerfile: Dockerfile.core
     ports:
-     - "49152:49152"
+      - "49152:49152"
   ui:
     build:
       context: .
       dockerfile: Dockerfile.ui
+    environment:
+      - GERBERA_BASE_URL=http://core:49152
