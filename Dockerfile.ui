@@ -16,7 +16,8 @@ RUN apt-get install -y software-properties-common
 RUN add-apt-repository main
 RUN apt-get install -y git \
   wget \
-  xvfb
+  xvfb \
+  vim
 
 ##--------------------------------------
 ## Install Google Chrome
@@ -34,9 +35,9 @@ RUN git clone https://github.com/elmodaddyb/gerbera-integration.git
 ## Run the UI Testing
 ##--------------------------------------
 WORKDIR /gerbera-integration/ui-test
-RUN npm install
-RUN export DISPLAY=:99.0
-RUN /usr/bin/Xvfb&
-RUN sleep 3
-RUN npm run test
+#RUN npm install
+#RUN export DISPLAY=:99.0
+#RUN /usr/bin/Xvfb&
+#RUN sleep 3
+#RUN npm run test
 EXPOSE 9515

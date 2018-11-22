@@ -13,8 +13,8 @@ suite(() => {
   before(async () => {
     console.log('Gerbera Web UI URL --> ' + webServer);
     const chromeOptions = new chrome.Options();
-    chromeOptions.addArguments(['--headless', '--window-size=1280,1024',
-      '--disable-gpu', '--disable-dev-shm-usage', '--disable-extensions', '--no-sandbox']);
+    chromeOptions.addArguments(['--window-size=1280,1024',
+      '--disable-gpu', '--disable-extensions', '--no-sandbox']);
     driver = new Builder()
       .forBrowser('chrome')
       .setChromeOptions(chromeOptions)
