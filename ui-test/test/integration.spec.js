@@ -12,12 +12,9 @@ suite(() => {
 
   before(async () => {
     console.log('Gerbera Web UI URL --> ' + webServer);
-    const chromeOptions = new chrome.Options();
-    chromeOptions.addArguments(['--window-size=1280,1024',
-      '--disable-gpu', '--disable-extensions', '--no-sandbox']);
     driver = new Builder()
       .forBrowser('chrome')
-      .setChromeOptions(chromeOptions)
+      .usingServer('http://selenium-hub:4444/wd/hub')
       .build();
     loginPage = new LoginPage(driver);
   });

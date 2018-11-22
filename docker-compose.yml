@@ -6,9 +6,24 @@ services:
       dockerfile: Dockerfile.core
     ports:
       - "49152:49152"
+  selenium-hub:
+    image: selenium/hub:3.141.59-bismuth
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+  chrome:
+    image: selenium/node-chrome:3.141.59-bismuth
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
   ui:
     build:
       context: .
       dockerfile: Dockerfile.ui
     environment:
       - GERBERA_BASE_URL=http://core:49152
+    depends_on:
+      - chrome
+      - core
