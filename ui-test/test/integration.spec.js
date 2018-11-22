@@ -14,7 +14,7 @@ suite(() => {
     console.log('Gerbera Web UI URL --> ' + webServer);
     driver = new Builder()
       .forBrowser('chrome')
-      .usingServer('http://selenium-hub:4444/wd/hub')
+      .usingServer('http://' + process.env.HUB_HOST + ':' + process.env.HUB_PORT + '/wd/hub')
       .build();
     loginPage = new LoginPage(driver);
   });

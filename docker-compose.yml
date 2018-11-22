@@ -24,6 +24,8 @@ services:
       dockerfile: Dockerfile.ui
     environment:
       - GERBERA_BASE_URL=http://core:49152
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
     depends_on:
       - chrome
       - core
