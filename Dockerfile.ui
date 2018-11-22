@@ -35,4 +35,7 @@ RUN git clone https://github.com/elmodaddyb/gerbera-integration.git
 ##--------------------------------------
 WORKDIR /gerbera-integration/ui-test
 RUN npm install
+RUN export DISPLAY=:99.0
+RUN sh -e /etc/init.d/xvfb start
+RUN sleep 3
 RUN npm run test
