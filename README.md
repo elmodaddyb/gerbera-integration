@@ -28,7 +28,7 @@ docker run -p 49152:49152 --net=gerbera --name gerbera-core elmodaddyb/gerbera-c
 ## Build Docker `gerbera-ui`
 
 ```
-$ docker build --name gerbera-ui -t elmodaddyb/gerbera-ui -f Dockerfile.ui .
+$ docker build -t elmodaddyb/gerbera-ui -f Dockerfile.ui .
 ```
 
 ## Run Docker `gerbera-ui`
@@ -60,7 +60,7 @@ integration test.
 * Builds the **gerbera-upnp** container
 
 ```
-$ docker-compose up
+$ docker-compose -f docker-compose.ui.yml up --abort-on-container-exit
 ```
 
 ## Run the tests manually
