@@ -28,5 +28,6 @@ services:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
     depends_on:
-      - core
+      - selenium-hub
       - chrome
+      - core
