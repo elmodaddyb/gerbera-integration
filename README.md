@@ -64,7 +64,7 @@ is successful.
 
 ```
 $ docker build -t elmodaddyb/gerbera-media -f Dockerfile.media .
-$ docker run -it --entrypoint /bin/bash elmodaddyb/gerbera-media
+$ docker run -it -v gerbera-media:/gerbera-media --entrypoint /bin/bash elmodaddyb/gerbera-media
 ```
 
 # In Depth - Manual Test Run
@@ -77,7 +77,7 @@ The instructions below assume that you have successfully built all the container
 $ docker network create gerbera
 $ docker run -d -p 4444:4444 --net gerbera --name selenium-hub selenium/hub:3.141.59-bismuth
 $ docker run -d --net gerbera -e HUB_HOST=selenium-hub -v /dev/shm:/dev/shm selenium/node-chrome:3.141.59-bismuth
-$ docker run -d -p 49152:49152 --net gerbera --name gerbera-core elmodaddyb/gerbera-core
+$ docker run -d -p 49152:49152 -v gerbera-media:/gerbera-media --net gerbera --name gerbera-core elmodaddyb/gerbera-core
 $ export HUB_HOST=localhost
 $ export HUB_PORT=4444
 ```
@@ -86,14 +86,14 @@ Capture the IP address of the running **gerbera-core** by inspecting the contain
 capture the `"IPAddress"` as it is output by the `docker inspect` command.
 
 ```
-$ docker inspect gerbera-core | jq -r .[0].NetworkSettings.Networks.grid.IPAddress
+$ docker inspect gerbera-core | jq -r .[0].NetworkSettings.Networks.gerbera.IPAddress
 
    172.23.0.4
 ```
 
 We run the command inline below to generate the `GERBERA_BASE_URL`
 ```
-$ export GERBERA_BASE_URL=http://$(docker inspect gerbera-core | jq -r .[0].NetworkSettings.Networks.grid.IPAddress):49152
+$ export GERBERA_BASE_URL=http://$(docker inspect gerbera-core | jq -r .[0].NetworkSettings.Networks.gerbera.IPAddress):49152
 $ echo $GERBERA_BASE_URL
 
    http://172.23.0.4:49152

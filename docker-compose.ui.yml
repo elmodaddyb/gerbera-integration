@@ -7,6 +7,10 @@ services:
       dockerfile: ./gerbera-core/Dockerfile.core
     ports:
       - "49152:49152"
+    volumes:
+      - gerbera-media:/gerbera-media
+    depends_on:
+      - media
   selenium-hub:
     image: selenium/hub:3.141.59-bismuth
     container_name: selenium-hub
@@ -19,6 +23,13 @@ services:
     environment:
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
+  media:
+    container_name: media
+    build:
+      context: .
+      dockerfile: ./gerbera-media/Dockerfile.media
+    volumes:
+      - gerbera-media:/gerbera-media
   ui:
     build:
       context: .
@@ -31,3 +42,5 @@ services:
       - selenium-hub
       - chrome
       - core
+volumes:
+  gerbera-media:

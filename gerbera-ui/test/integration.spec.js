@@ -53,5 +53,18 @@ suite(() => {
       expect(tree.length).to.equal(2);
     });
 
+    it('loads file system and all child directories', async () => {
+      await homePage.clickMenu('nav-fs');
+      const tree = await homePage.treeItems();
+      expect(tree.length).to.equal(22);
+    });
+
+    it('when clicking gerbera-media, contains the content downloaded', async () => {
+      await homePage.clickTree('gerbera-media');
+      const item = await homePage.getItem(0);
+      const result = await homePage.hasAddIcon(item);
+      expect(result).to.be.true;
+    });
+
   });
 });
