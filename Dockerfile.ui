@@ -15,7 +15,8 @@ RUN apt-get update
 RUN apt-get install -y software-properties-common
 RUN add-apt-repository main
 RUN apt-get install -y git \
-  wget
+  wget \
+  jq
 
 ##--------------------------------------
 ## Download Gerbera Integration Project

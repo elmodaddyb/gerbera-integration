@@ -6,9 +6,10 @@ const webServer = process.env.GERBERA_BASE_URL;
 let driver;
 
 const LoginPage = require('./page/login.page');
+const HomePage = require('./page/home.page');
 
 suite(() => {
-  let loginPage;
+  let loginPage, homePage;
 
   before(async () => {
     console.log('Gerbera Web UI URL --> ' + webServer);
@@ -17,6 +18,7 @@ suite(() => {
       .usingServer('http://' + process.env.HUB_HOST + ':' + process.env.HUB_PORT + '/wd/hub')
       .build();
     loginPage = new LoginPage(driver);
+    homePage = new HomePage(driver);
   });
 
   after(() => driver && driver.quit());
@@ -35,10 +37,20 @@ suite(() => {
       await loginPage.get(webServer + '/index.html');
     });
 
-    it('requires user name and password to submit the login form', async () => {
-      await loginPage.password('gerbera');
-      await loginPage.username('gerbera');
-      await loginPage.submitLogin();
+    it('enables the database and filetype menus upon login', async () => {
+      let menu = await homePage.getDatabaseMenu();
+      let menuClass = await menu.getAttribute('class');
+      expect(menuClass).to.equal('nav-link');
+
+      menu = await homePage.getFileSystemMenu();
+      menuClass = await menu.getAttribute('class');
+      expect(menuClass).to.equal('nav-link');
+    });
+
+    it('loads the parent database container and PC Directory when clicking Database', async () => {
+      await homePage.clickMenu('nav-db');
+      const tree = await homePage.treeItems();
+      expect(tree.length).to.equal(2);
     });
 
   });
