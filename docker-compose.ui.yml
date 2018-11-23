@@ -4,7 +4,7 @@ services:
     container_name: core
     build:
       context: .
-      dockerfile: Dockerfile.core
+      dockerfile: ./gerbera-core/Dockerfile.core
     ports:
       - "49152:49152"
   selenium-hub:
@@ -22,7 +22,7 @@ services:
   ui:
     build:
       context: .
-      dockerfile: Dockerfile.ui
+      dockerfile: ./gerbera-ui/Dockerfile.ui
     environment:
       - GERBERA_BASE_URL=http://core:49152
       - HUB_HOST=selenium-hub
