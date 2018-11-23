@@ -30,17 +30,5 @@ services:
       dockerfile: ./gerbera-media/Dockerfile.media
     volumes:
       - gerbera-media:/gerbera-media
-  ui:
-    build:
-      context: .
-      dockerfile: ./gerbera-ui/Dockerfile.ui
-    environment:
-      - GERBERA_BASE_URL=http://gerbera-core:49152
-      - HUB_HOST=selenium-hub
-      - HUB_PORT=4444
-    depends_on:
-      - selenium-hub
-      - chrome
-      - core
 volumes:
   gerbera-media:

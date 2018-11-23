@@ -115,6 +115,7 @@ module.exports = function (driver) {
 
   this.submitEditor = async () => {
     await driver.findElement(By.id('editSave')).click();
+    await driver.sleep(2000); // await animation
     return await driver.wait(until.elementIsNotVisible(driver.findElement(By.id('editModal'))), 5000);
   };
 
@@ -172,6 +173,10 @@ module.exports = function (driver) {
     }
   };
 
+  this.clickItemAdd = async (grbItem) => {
+      return await grbItem.findElement(By.css('.grb-item-add')).click();
+  };
+
   this.clickTrailAdd = async () => {
     const addEl = await driver.findElement(By.css('.grb-trail-add'));
     await addEl.click();
@@ -188,6 +193,11 @@ module.exports = function (driver) {
     const el = await driver.findElement(By.css('.grb-trail-edit'));
     await el.click();
     return await driver.wait(until.elementIsVisible(driver.findElement(By.id('editModal'))), 5000);
+  };
+
+  this.clickTrailDelete = async () => {
+    const el = await driver.findElement(By.css('.grb-trail-delete'));
+    return await el.click();
   };
 
   this.editOverlayTitle = async () => {
