@@ -13,40 +13,29 @@ $ docker network create gerbera
 
 # Gerbera core
 
-## Build Docker `gerbera-core`
-
 ```
-$ docker build --name gerbera-core -t elmodaddyb/gerbera-core -f Dockerfile.core .
-```
-
-## Run Docker `gerbera-core`
-
-```
-docker run -p 49152:49152 --net=gerbera --name gerbera-core elmodaddyb/gerbera-core
+$ docker build -t elmodaddyb/gerbera-core -f Dockerfile.core .
+$ docker run -p 49152:49152 --net=gerbera --name gerbera-core elmodaddyb/gerbera-core
 ```
 
-## Build Docker `gerbera-ui`
+# Gerbera ui
 
 ```
 $ docker build -t elmodaddyb/gerbera-ui -f Dockerfile.ui .
-```
-
-## Run Docker `gerbera-ui`
-
-```
-docker run --net=gerbera --name gerbera-ui elmodaddyb/gerbera-core
+$ docker run --net=gerbera --name gerbera-ui elmodaddyb/gerbera-ui
 ```
 
 # Gerbera media
 
 ```
 $ docker build --name gerbera-media -t elmodaddyb/gerbera-media -f Dockerfile.media .
+$ docker run -it --entrypoint /bin/bash elmodaddyb/gerbera-media
 ```
 
 ## View the media VOLUME
 
 ```
-$ docker run -it --entrypoint /bin/bash elmodaddyb/gerbera-media
+
 ```
 
 # Docker Compose
