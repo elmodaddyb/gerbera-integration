@@ -30,13 +30,14 @@ completion of the tests.
 
 The docker suite runs on a custom network to allow communication between containers.
 
-> Create the Gerbera Docker Network
-
 ```
 $ docker network create gerbera
 ```
 
 ## Gerbera core
+
+The **gerbera core** docker container downloads the Gerbera Media Server source code and
+compiles the server, along with installing all dependencies to run the Gerbera Media Server.
 
 ```
 $ docker build -t elmodaddyb/gerbera-core -f Dockerfile.core .
@@ -45,12 +46,21 @@ $ docker run -p 49152:49152 --net=gerbera --name gerbera-core elmodaddyb/gerbera
 
 ## Gerbera ui
 
+The **gerbera ui** docker container downloads the UI integration test suite, _based in NodeJS_
+and runs the test suite.  The container relies on **gerbera-core** and other selenium containers
+to run the UI test suite.
+
 ```
 $ docker build -t elmodaddyb/gerbera-ui -f Dockerfile.ui .
 $ docker run --net=gerbera --name gerbera-ui elmodaddyb/gerbera-ui
 ```
 
 ## Gerbera media
+
+The **gerbera media** docker container downloads simple example `mp3` and `mp4` content
+to allow for addition of the content to the **gerbera core** container.  The **gerbera ui**
+test suite references this content to perform an integration test that asserts adding content
+is successful.
 
 ```
 $ docker build -t elmodaddyb/gerbera-media -f Dockerfile.media .
@@ -60,6 +70,8 @@ $ docker run -it --entrypoint /bin/bash elmodaddyb/gerbera-media
 # In Depth - Manual Test Run
 
 ## Run the UI tests
+
+The instructions below assume that you have successfully built all the containers.
 
 ```
 $ docker network create gerbera
