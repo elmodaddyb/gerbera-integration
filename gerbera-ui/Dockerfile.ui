@@ -26,8 +26,8 @@ RUN git clone https://github.com/elmodaddyb/gerbera-integration.git
 ##--------------------------------------
 ## Run the UI Testing
 ##--------------------------------------
-WORKDIR /gerbera-integration/ui-test
+WORKDIR /gerbera-integration/gerbera-ui
 RUN npm install
 RUN chmod 777 ./wait-for-grid.sh
-ENTRYPOINT [ "/gerbera-integration/ui-test/wait-for-grid.sh"]
+ENTRYPOINT [ "/gerbera-integration/gerbera-ui/wait-for-grid.sh"]
 CMD ["npm", "run", "test"]

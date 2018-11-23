@@ -15,6 +15,7 @@ Gerbera Web UI integration test.
 * Starts the **chrome node** container
 
 ```
+$ docker-compose -f docker-compose.ui.yml build --no-cache
 $ docker-compose -f docker-compose.ui.yml up --abort-on-container-exit
 ```
 
@@ -40,8 +41,12 @@ The **gerbera core** docker container downloads the Gerbera Media Server source 
 compiles the server, along with installing all dependencies to run the Gerbera Media Server.
 
 ```
-$ docker build -t elmodaddyb/gerbera-core -f Dockerfile.core .
-$ docker run -p 49152:49152 --net=gerbera --name gerbera-core elmodaddyb/gerbera-core
+$ docker build -t elmodaddyb/gerbera-core -f ./gerbera-core/Dockerfile.core .
+$ docker run -p 49152:49152 \
+   --net=gerbera \
+   -v gerbera-media:/gerbera-media \
+   --name gerbera-core \
+   elmodaddyb/gerbera-core
 ```
 
 ## Gerbera ui
@@ -51,7 +56,7 @@ and runs the test suite.  The container relies on **gerbera-core** and other sel
 to run the UI test suite.
 
 ```
-$ docker build -t elmodaddyb/gerbera-ui -f Dockerfile.ui .
+$ docker build -t elmodaddyb/gerbera-ui -f ./gerbera-ui/Dockerfile.ui .
 $ docker run --net=gerbera --name gerbera-ui elmodaddyb/gerbera-ui
 ```
 
@@ -63,7 +68,7 @@ test suite references this content to perform an integration test that asserts a
 is successful.
 
 ```
-$ docker build -t elmodaddyb/gerbera-media -f Dockerfile.media .
+$ docker build -t elmodaddyb/gerbera-media -f ./gerbera-media/Dockerfile.media .
 $ docker run -it -v gerbera-media:/gerbera-media --entrypoint /bin/bash elmodaddyb/gerbera-media
 ```
 
