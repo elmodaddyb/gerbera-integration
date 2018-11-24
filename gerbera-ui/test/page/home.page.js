@@ -53,6 +53,15 @@ module.exports = function (driver) {
     await folderTitle.click();
     return await driver.sleep(500); // todo use wait...
   };
+  this.getTreeItem = async (text) => {
+    return await driver.findElement(By.xpath('//span[contains(text(),\'' + text + '\')]'));
+  };
+  this.expandBelow = async (treeItem, text) => {
+    const elem = await treeItem.findElement(By.xpath('//span[contains(text(),\'' + text + '\')]'));
+    await driver.wait(until.elementIsVisible(elem), 5000);
+    await elem.click();
+    return await driver.sleep(500); // todo use wait...
+  };
 
   this.getItem = async (idx) => {
     await driver.wait(until.elementLocated(By.id('datagrid'), 5000));
@@ -263,6 +272,11 @@ module.exports = function (driver) {
   this.waitForToastClose = async () => {
     await driver.wait(until.elementIsNotVisible(driver.findElement(By.id('toast'))), 6000);
     return await driver.findElement(By.css('#grb-toast-msg')).isDisplayed();
+  };
+
+  this.closeToast = async () => {
+    await driver.findElement(By.css('#toast button.close')).click();
+    return await driver.wait(until.elementIsNotVisible(driver.findElement(By.id('toast'))), 2000);
   };
 
   this.getPages = async () => {

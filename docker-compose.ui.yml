@@ -17,6 +17,7 @@ services:
     ports:
       - "4444:4444"
   chrome:
+    container_name: node-chrome
     image: selenium/node-chrome:3.141.59-bismuth
     depends_on:
       - selenium-hub

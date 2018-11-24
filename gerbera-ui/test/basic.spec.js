@@ -1,8 +1,8 @@
 const {expect} = require('chai');
 const {Builder} = require('selenium-webdriver');
 const {suite} = require('selenium-webdriver/testing');
-let chrome = require('selenium-webdriver/chrome');
 const webServer = process.env.GERBERA_BASE_URL;
+const seleniumHub = `http://${process.env.HUB_HOST}:${process.env.HUB_PORT}/wd/hub`;
 let driver;
 
 const LoginPage = require('./page/login.page');
@@ -12,18 +12,16 @@ suite(() => {
   let loginPage, homePage;
 
   before(async () => {
-    console.log(`\n\tGerbera Web UI URL --> ${webServer}\n`);
-    driver = new Builder()
-      .forBrowser('chrome')
-      .usingServer(`http://${process.env.HUB_HOST }:${process.env.HUB_PORT}/wd/hub`)
-      .build();
+    console.log(`\n\tGerbera Web UI URL --> ${webServer}`);
+    console.log(`\tSelenium Hub URL   --> ${seleniumHub}\n`);
+    driver = new Builder().usingServer(seleniumHub).build();
     loginPage = new LoginPage(driver);
     homePage = new HomePage(driver);
   });
 
   after(() => driver && driver.quit());
 
-  describe('The Gerbera UI', () => {
+  describe('Basic Integration Test', () => {
 
     it('gets the disabled page to clear cookies', async () => {
       await driver.get(webServer + '/disabled.html');
@@ -74,11 +72,9 @@ suite(() => {
         const item = await homePage.getItem(0);
         await homePage.clickItemAdd(item);
 
-        let result = await loginPage.getToastMessage();
+        let result = await homePage.getToastMessage();
         expect(result).to.equal('Successfully added item');
-
-        result = await homePage.waitForToastClose();
-        expect(result).to.be.false;
+        await homePage.closeToast();
       });
 
       it('newly added content shows in the PC Directory', async () => {
@@ -139,11 +135,9 @@ suite(() => {
     describe('Gerbera Trail', () => {
       it('allows user to delete the tree item from the PC Directory', async () => {
         await homePage.clickTrailDelete();
-        let result = await loginPage.getToastMessage();
+        let result = await homePage.getToastMessage();
         expect(result).to.equal('Successfully removed item');
-
-        result = await homePage.waitForToastClose();
-        expect(result).to.be.false;
+        await homePage.closeToast();
       });
     });
   });
