@@ -69,6 +69,13 @@ module.exports = function (driver) {
     return items[idx];
   };
 
+  this.getItemByText = async (text) => {
+    await driver.wait(until.elementLocated(By.id('datagrid'), 5000));
+    const datagrid = await driver.findElement(By.id('datagrid'));
+    const spanElement = await datagrid.findElement(By.xpath('//span[contains(text(),\'' + text + '\')]'));
+    return await spanElement.findElement(By.xpath('..'));
+  };
+
   this.deleteItemFromList = async (idx) => {
     const items = await driver.findElements(By.css('.grb-item span.grb-item-delete'));
     const item = items[idx];

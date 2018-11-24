@@ -22,16 +22,15 @@ RUN add-apt-repository main
 RUN apt-get install -y wget
 
 ##--------------------------------------
-## Download example media to the volume
+## Media download setup
 ##--------------------------------------
+WORKDIR /
+COPY ./gerbera-media/download-content.sh ./
+RUN chmod 744 ./download-content.sh
 RUN mkdir /gerbera-media
-WORKDIR /gerbera-media
-#RUN wget https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4
-#RUN wget https://sample-videos.com/audio/mp3/crowd-cheering.mp3
-RUN wget https://archive.org/download/testmp3testfile/mpthreetest.mp3
 VOLUME /gerbera-media
 
 ##--------------------------------------
-## Keep the container running...
+## Download content to composed volume
 ##--------------------------------------
-CMD tail -f /dev/null
+ENTRYPOINT ["/download-content.sh"]

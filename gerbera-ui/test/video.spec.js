@@ -21,7 +21,7 @@ suite(() => {
 
   after(() => driver && driver.quit());
 
-  describe('Audio Integration Test', () => {
+  describe.skip('Video Integration Test', () => {
 
     it('gets the disabled page to clear cookies', async () => {
       await driver.get(webServer + '/disabled.html');
@@ -35,11 +35,11 @@ suite(() => {
       await loginPage.get(webServer + '/index.html');
     });
 
-    describe('Gerbera Audio', () => {
+    describe('Gerbera Video', () => {
       it('is added from the filesystem view', async () => {
         await homePage.clickMenu('nav-fs');
         await homePage.clickTree('gerbera-media');
-        const item = await homePage.getItemByText('mpthreetest.mp3');
+        const item = await homePage.getItem(0);
         await homePage.clickItemAdd(item);
 
         let result = await homePage.getToastMessage();
@@ -49,32 +49,32 @@ suite(() => {
     });
 
     describe('Virtual Objects in Database view', () => {
-      it('mp3 audio adds a virtual item found in the Audio folder', async () => {
+      it('mp4 video adds a virtual item found in the Video folder', async () => {
         await homePage.clickMenu('nav-db');
-        await homePage.clickTree('Audio');
+        await homePage.clickTree('Video');
         const tree = await homePage.treeItems();
         expect(tree.length).to.equal(10);
       });
 
-      it('mp3 audio creates a container called `All - full name`', async () => {
+      it('mp4 video creates a container called `All - full name`', async () => {
         await homePage.clickTree('All - full name');
         const items = await homePage.items();
         expect(items.length).to.equal(1);
       });
 
-      it('mp3 audio is available by the full name', async () => {
+      it('mp4 video is available by the full name', async () => {
         const item = await homePage.getItem(0);
         const text = await item.getText();
         expect(text).to.equal('Me - Me - Test of MP3 File');
       });
 
-      it('mp3 audio creates a container called `All Audio`', async () => {
-        await homePage.clickTree('All Audio');
+      it('mp4 video creates a container called `All Video`', async () => {
+        await homePage.clickTree('All Video');
         const items = await homePage.items();
         expect(items.length).to.equal(1);
       });
 
-      it('mp3 audio is available by the title name', async () => {
+      it('mp4 video is available by the title name', async () => {
         const item = await homePage.getItem(0);
         const text = await item.getText();
         expect(text).to.equal('Test of MP3 File');

@@ -62,14 +62,14 @@ suite(() => {
     describe('Gerbera Tree & Items', () => {
       it('when clicking gerbera-media, contains the content downloaded', async () => {
         await homePage.clickTree('gerbera-media');
-        const item = await homePage.getItem(0);
+        const item = await homePage.getItemByText('mpthreetest.mp3');
         const result = await homePage.hasAddIcon(item);
         expect(result).to.be.true;
       });
 
       it('adds the media when click of add in items list', async () => {
         await homePage.clickTree('gerbera-media');
-        const item = await homePage.getItem(0);
+        const item = await homePage.getItemByText('mpthreetest.mp3');
         await homePage.clickItemAdd(item);
 
         let result = await homePage.getToastMessage();
