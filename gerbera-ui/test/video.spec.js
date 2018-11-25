@@ -21,7 +21,7 @@ suite(() => {
 
   after(() => driver && driver.quit());
 
-  describe.skip('Video Integration Test', () => {
+  describe('Video Integration Test', () => {
 
     it('gets the disabled page to clear cookies', async () => {
       await driver.get(webServer + '/disabled.html');
@@ -39,7 +39,7 @@ suite(() => {
       it('is added from the filesystem view', async () => {
         await homePage.clickMenu('nav-fs');
         await homePage.clickTree('gerbera-media');
-        const item = await homePage.getItem(0);
+        const item = await homePage.getItemByText('big_buck_bunny_720p_1mb.mp4');
         await homePage.clickItemAdd(item);
 
         let result = await homePage.getToastMessage();
@@ -53,19 +53,7 @@ suite(() => {
         await homePage.clickMenu('nav-db');
         await homePage.clickTree('Video');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(10);
-      });
-
-      it('mp4 video creates a container called `All - full name`', async () => {
-        await homePage.clickTree('All - full name');
-        const items = await homePage.items();
-        expect(items.length).to.equal(1);
-      });
-
-      it('mp4 video is available by the full name', async () => {
-        const item = await homePage.getItem(0);
-        const text = await item.getText();
-        expect(text).to.equal('Me - Me - Test of MP3 File');
+        expect(tree.length).to.equal(5);
       });
 
       it('mp4 video creates a container called `All Video`', async () => {
@@ -74,30 +62,22 @@ suite(() => {
         expect(items.length).to.equal(1);
       });
 
-      it('mp4 video is available by the title name', async () => {
+      it('mp4 video is available by the file name', async () => {
         const item = await homePage.getItem(0);
         const text = await item.getText();
-        expect(text).to.equal('Test of MP3 File');
+        expect(text).to.equal('big_buck_bunny_720p_1mb.mp4');
       });
 
-      it('mp3 audio creates a container called `Artists` with containers by artists name', async () => {
-        await homePage.clickTree('Artists');
-        const artists = await homePage.getTreeItem('Artists');
+      it('mp4 video creates a container matching the `Directories`', async () => {
+        await homePage.clickTree('Directories');
+        const directories = await homePage.getTreeItem('Directories');
         let tree = await homePage.treeItems();
-        expect(tree.length).to.equal(11);
+        expect(tree.length).to.equal(6);
 
-        await homePage.expandBelow(artists, 'Me');
-        tree = await homePage.treeItems();
-        expect(tree.length).to.equal(14);
-
-        const meArtist = await homePage.getTreeItem('Me');
-        await homePage.expandBelow(meArtist, 'All Songs');
-        tree = await homePage.treeItems();
-        expect(tree.length).to.equal(14);
-
+        await homePage.expandBelow(directories, 'gerbera-media');
         const item = await homePage.getItem(0);
         const text = await item.getText();
-        expect(text).to.equal('Test of MP3 File');
+        expect(text).to.equal('big_buck_bunny_720p_1mb.mp4');
       });
     });
 
