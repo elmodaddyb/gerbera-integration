@@ -105,18 +105,11 @@ RUN make install
 ## Setup the Gerbera user
 ##--------------------------------------
 RUN useradd --system gerbera
-RUN mkdir /home/gerbera
-RUN mkdir /home/gerbera/.config
-RUN mkdir /home/gerbera/.config/gerbera
-
+RUN mkdir /gerbera-home
+VOLUME /gerbera-home
 RUN chown gerbera:gerbera -Rv /usr/local/share/gerbera
-RUN chown gerbera:gerbera -Rv /home/gerbera
+RUN chown gerbera:gerbera -Rv /gerbera-home
 USER gerbera
 
-##--------------------------------------
-## Setup Gerbera config.xml
-##--------------------------------------
-RUN gerbera --create-config > /home/gerbera/.config/gerbera/config.xml
-
-ENTRYPOINT ["/usr/local/bin/gerbera"]
+ENTRYPOINT ["/usr/local/bin/gerbera", "-c", "/gerbera-home/config.default.xml"]
 EXPOSE 49152/tcp 1900/udp

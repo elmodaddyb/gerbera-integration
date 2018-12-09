@@ -75,6 +75,7 @@ $ docker build -t elmodaddyb/gerbera-core -f ./gerbera-core/Dockerfile.core .
 $ docker run -p 49152:49152 \
    --net=gerbera \
    -v gerbera-media:/gerbera-media \
+   -v gerbera-home:/gerbera-home \
    --name gerbera-core \
    elmodaddyb/gerbera-core
 ```
@@ -100,6 +101,19 @@ is successful.
 ```
 $ docker build -t elmodaddyb/gerbera-media -f ./gerbera-media/Dockerfile.media .
 $ docker run -it -v gerbera-media:/gerbera-media --entrypoint /bin/bash elmodaddyb/gerbera-media
+```
+
+## Gerbera home
+
+The **gerbera-home** docker container copies the configuration files needed to run sample **gerbera-core**
+with testing configurations.
+
+```
+$ docker build -t elmodaddyb/gerbera-home -f ./gerbera-home/Dockerfile.home .
+$ docker run --net=gerbera \
+   -v gerbera-home:/gerbera-home \
+   --name gerbera-home \
+   elmodaddyb/gerbera-home
 ```
 
 # In Depth - Manual Test Run

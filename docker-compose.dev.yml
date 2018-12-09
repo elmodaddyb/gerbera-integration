@@ -9,8 +9,10 @@ services:
       - "49152:49152"
     volumes:
       - gerbera-media:/gerbera-media
+      - gerbera-home:/gerbera-home
     depends_on:
       - media
+      - home
   selenium-hub:
     image: selenium/hub:3.141.59-bismuth
     container_name: selenium-hub
@@ -31,5 +33,13 @@ services:
       dockerfile: ./gerbera-media/Dockerfile.media
     volumes:
       - gerbera-media:/gerbera-media
+  home:
+    container_name: gerbera-home
+    build:
+      context: .
+      dockerfile: ./gerbera-home/Dockerfile.home
+    volumes:
+      - gerbera-home:/gerbera-home
 volumes:
   gerbera-media:
+  gerbera-home:
