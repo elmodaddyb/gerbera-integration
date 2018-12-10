@@ -111,5 +111,5 @@ RUN chown gerbera:gerbera -Rv /usr/local/share/gerbera
 RUN chown gerbera:gerbera -Rv /gerbera-home
 USER gerbera
 
-ENTRYPOINT ["/usr/local/bin/gerbera", "-c", "/gerbera-home/config.default.xml"]
+ENTRYPOINT /usr/local/bin/gerbera -c /gerbera-home/$GERBERA_CONFIG_FILE
 EXPOSE 49152/tcp 1900/udp

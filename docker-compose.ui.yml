@@ -1,6 +1,8 @@
 version: '3'
 services:
   core:
+    env_file:
+      - ${GERBERA_CORE_ENV}
     container_name: gerbera-core
     build:
       context: .
@@ -51,7 +53,7 @@ services:
       context: .
       dockerfile: ./gerbera-home/Dockerfile.home
     volumes:
-    - gerbera-home:/gerbera-home
+      - gerbera-home:/gerbera-home
 volumes:
   gerbera-media:
   gerbera-home:
