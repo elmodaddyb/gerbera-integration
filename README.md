@@ -75,7 +75,7 @@ $ docker build -t elmodaddyb/gerbera-core -f ./gerbera-core/Dockerfile.core .
 $ docker run -p 49152:49152 \
    --net=gerbera \
    -v gerbera-media:/gerbera-media \
-   -v gerbera-home:/gerbera-home \
+   --volumes-from gerbera-home \
    --name gerbera-core \
    elmodaddyb/gerbera-core
 ```
