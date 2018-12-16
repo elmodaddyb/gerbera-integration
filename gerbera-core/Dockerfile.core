@@ -63,7 +63,8 @@ ENV SHELL /bin/bash
 ##--------------------------------------
 RUN mkdir /gerbera
 WORKDIR /gerbera
-RUN git clone https://github.com/elmodaddyb/gerbera.git
+ARG GIT_CMD
+RUN $GIT_CMD
 
 RUN mkdir build
 WORKDIR /gerbera/build

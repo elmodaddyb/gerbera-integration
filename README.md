@@ -15,9 +15,6 @@ Gerbera Web UI integration test.
 * Starts the **chrome node** container
 
 ```
-// Set the Gerbera Core's environment
-$ export GERBERA_CORE_ENV=./gerbera-core/config-file.env
-
 // Build the docker containers
 $ docker-compose -f docker-compose.ui.yml build --no-cache
 
@@ -37,7 +34,6 @@ The `docker-compose.dev.yml` runs the **gerbera-core**, **selenium-hub**, and **
 the **gerbera-core** and develop additional integration tests.
 
 ```
-$ export GERBERA_CORE_ENV=./gerbera-core/config-file.env
 $ docker-compose -f docker-compose.dev.yml build
 $ docker-compose -f docker-compose.dev.yml up
 ```
