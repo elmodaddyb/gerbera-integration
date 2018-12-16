@@ -62,14 +62,14 @@ suite(() => {
     describe('Gerbera Tree & Items', () => {
       it('when clicking gerbera-media, contains the content downloaded', async () => {
         await homePage.clickTree('gerbera-media');
-        const item = await homePage.getItemByText('mpthreetest.mp3');
+        const item = await homePage.getItemByText('crowd-cheering.mp3');
         const result = await homePage.hasAddIcon(item);
         expect(result).to.be.true;
       });
 
       it('adds the media when click of add in items list', async () => {
         await homePage.clickTree('gerbera-media');
-        const item = await homePage.getItemByText('mpthreetest.mp3');
+        const item = await homePage.getItemByText('crowd-cheering.mp3');
         await homePage.clickItemAdd(item);
 
         let result = await homePage.getToastMessage();
@@ -106,7 +106,7 @@ suite(() => {
         expect(value).to.equal('item');
 
         value = await homePage.editOverlayFieldValue('editLocation');
-        expect(value).to.equal('/gerbera-media/mpthreetest.mp3');
+        expect(value).to.equal('/gerbera-media/crowd-cheering.mp3');
 
         value = await homePage.editOverlayFieldValue('editClass');
         expect(value).to.equal('object.item.audioItem.musicTrack');
@@ -129,7 +129,7 @@ suite(() => {
 
         const isDisplayed = await homePage.editOverlayDisplayed();
         expect(isDisplayed).to.be.false;
-      })
+      });
     });
 
     describe('Gerbera Trail', () => {

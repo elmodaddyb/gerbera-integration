@@ -1,5 +1,7 @@
 #!/bin/bash
 # wait-for-grid.sh
+# Purpose: The selenium grid takes a few seconds to become available
+# always wait for the grid before launching the test suite for the UI
 
 set -e
 

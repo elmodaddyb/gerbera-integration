@@ -19,13 +19,13 @@ RUN add-apt-repository main
 ##--------------------------------------
 ## Install downloading tools
 ##--------------------------------------
-RUN apt-get install -y wget
+RUN apt-get install -y curl
 
 ##--------------------------------------
 ## Media download setup
 ##--------------------------------------
 WORKDIR /
-COPY ./gerbera-media/download-content.sh ./
+COPY ./download-content.sh ./
 RUN chmod 744 ./download-content.sh
 RUN mkdir /gerbera-media
 VOLUME /gerbera-media

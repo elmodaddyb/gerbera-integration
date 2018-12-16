@@ -39,7 +39,7 @@ suite(() => {
       it('is added from the filesystem view', async () => {
         await homePage.clickMenu('nav-fs');
         await homePage.clickTree('gerbera-media');
-        const item = await homePage.getItemByText('mpthreetest.mp3');
+        const item = await homePage.getItemByText('crowd-cheering.mp3');
         await homePage.clickItemAdd(item);
 
         let result = await homePage.getToastMessage();
@@ -65,7 +65,7 @@ suite(() => {
       it('mp3 audio is available by the full name', async () => {
         const item = await homePage.getItem(0);
         const text = await item.getText();
-        expect(text).to.equal('Me - Me - Test of MP3 File');
+        expect(text).to.equal('- crowd-cheering.mp3');
       });
 
       it('mp3 audio creates a container called `All Audio`', async () => {
@@ -77,7 +77,7 @@ suite(() => {
       it('mp3 audio is available by the title name', async () => {
         const item = await homePage.getItem(0);
         const text = await item.getText();
-        expect(text).to.equal('Test of MP3 File');
+        expect(text).to.equal('crowd-cheering.mp3');
       });
 
       it('mp3 audio creates a container called `Artists` with containers by artists name', async () => {
@@ -86,18 +86,18 @@ suite(() => {
         let tree = await homePage.treeItems();
         expect(tree.length).to.equal(11);
 
-        await homePage.expandBelow(artists, 'Me');
+        await homePage.expandBelow(artists, 'Unknown');
         tree = await homePage.treeItems();
         expect(tree.length).to.equal(14);
 
-        const meArtist = await homePage.getTreeItem('Me');
+        const meArtist = await homePage.getTreeItem('Unknown');
         await homePage.expandBelow(meArtist, 'All Songs');
         tree = await homePage.treeItems();
         expect(tree.length).to.equal(14);
 
         const item = await homePage.getItem(0);
         const text = await item.getText();
-        expect(text).to.equal('Test of MP3 File');
+        expect(text).to.equal('crowd-cheering.mp3');
       });
     });
 

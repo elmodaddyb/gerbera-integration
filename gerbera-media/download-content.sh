@@ -11,7 +11,6 @@
 MEDIA_PATH=/gerbera-media
 declare -a files=("https://sample-videos.com/video123/mp4/720/big_buck_bunny_720p_1mb.mp4"
                   "https://sample-videos.com/audio/mp3/crowd-cheering.mp3"
-                  "https://archive.org/download/testmp3testfile/mpthreetest.mp3"
                   )
 
 download_file () {
@@ -20,7 +19,7 @@ download_file () {
     file_name=${url##*/}
     if [ ! -e "$dir/$file_name" ]; then
         echo "Downloading to: $dir/$file_name"
-        wget -P $dir $url
+        curl -o $dir/$file_name $url
     else
         echo "File exists: $dir/$file_name"
     fi

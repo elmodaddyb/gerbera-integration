@@ -21,7 +21,8 @@ RUN apt-get install -y git \
 ##--------------------------------------
 ## Download Gerbera Integration Project
 ##--------------------------------------
-RUN git clone https://github.com/elmodaddyb/gerbera-integration.git
+ARG GIT_CMD_UI
+RUN $GIT_CMD_UI
 
 ##--------------------------------------
 ## Run the UI Testing

@@ -10,19 +10,12 @@
 FROM ubuntu:latest
 
 ##--------------------------------------
-## Enable Ubuntu Repositories
-##--------------------------------------
-RUN apt-get update
-RUN apt-get install -y software-properties-common
-RUN add-apt-repository main
-
-##--------------------------------------
 ## Media download setup
 ##--------------------------------------
 RUN useradd --system gerbera
 RUN mkdir /gerbera-home
 WORKDIR /gerbera-home
-COPY ./gerbera-home/config.default.xml ./
+COPY ./config.default.xml ./
 RUN chown gerbera:gerbera -Rv /gerbera-home
 VOLUME /gerbera-home
 

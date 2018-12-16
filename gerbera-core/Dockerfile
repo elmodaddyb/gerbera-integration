@@ -63,8 +63,8 @@ ENV SHELL /bin/bash
 ##--------------------------------------
 RUN mkdir /gerbera
 WORKDIR /gerbera
-ARG GIT_CMD
-RUN $GIT_CMD
+ARG GIT_CMD_CORE
+RUN $GIT_CMD_CORE
 
 RUN mkdir build
 WORKDIR /gerbera/build
@@ -107,10 +107,10 @@ RUN make install
 ##--------------------------------------
 RUN useradd --system gerbera
 RUN mkdir /gerbera-home
-VOLUME /gerbera-home
 RUN chown gerbera:gerbera -Rv /usr/local/share/gerbera
 RUN chown gerbera:gerbera -Rv /gerbera-home
+VOLUME /gerbera-home
 USER gerbera
 
-ENTRYPOINT /usr/local/bin/gerbera -c /gerbera-home/$GERBERA_CONFIG_FILE
+ENTRYPOINT /usr/local/bin/gerbera -c $GERBERA_CONFIG_FILE
 EXPOSE 49152/tcp 1900/udp
