@@ -112,5 +112,5 @@ RUN chown gerbera:gerbera -Rv /gerbera-home
 VOLUME /gerbera-home
 USER gerbera
 
-ENTRYPOINT /usr/local/bin/gerbera -c $GERBERA_CONFIG_FILE
+ENTRYPOINT $CORE_CMD
 EXPOSE 49152/tcp 1900/udp
