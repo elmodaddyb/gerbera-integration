@@ -2,9 +2,19 @@
 
 A python based CLI exists to allow for fast use of the Gerbera Integration suite.
 
-## Setup the BASH alias
+## Setup the BASH variables & function
 
-:: TODO
+1. Add the `GI_HOME` environment variable pointing to the **gerbera-integration** directory
+2. Add the `gi` function to your `.bash_profile`
+
+    **.bash_profile**
+    ```bash
+    export GI_HOME=/home/gerbera-integration
+    gi () {
+        python $GI_HOME/tools/gerbera-cli.py "$@"
+    }
+    ```
+
 
 ## Commands
 

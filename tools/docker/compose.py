@@ -8,30 +8,50 @@ class Compose:
             self.options = [options] + extraOpts
         else:
             self.options = [options]
+        self.process = None
+        self.composeFile = None
+    
+    def __del__(self):
+        if(self.process):
+            print('\n\nKilling compose process...\n\n')
+            self.process.kill()
+            fullComposePath = self.home() + '/' + self.composeFile
+            process = Popen(['/usr/local/bin/docker-compose', '-f', fullComposePath, 'down'], stdout=PIPE, stderr=PIPE, cwd=self.home())            
+            while True:
+                if process.poll() is not None:
+                    break
+                else:
+                    output = process.stderr.readline()
+                    if output:
+                        print(output.decode('utf-8').strip())
+            rc = process.wait()
+            print(f'compose down exited with rc={rc}')
 
     def run(self):
         if(self.action == 'dev'):
-            returnCode = self.composeDocker('docker-compose.dev.yml', self.options)
+            self.composeFile = 'docker-compose.dev.yml'
+            returnCode = self.composeDocker(self.composeFile, self.options)
             print(f'\n\nCompleted compose with return code ---> {returnCode}')
         elif(self.action == 'ui'):
-            returnCode = self.composeDocker('docker-compose.ui.yml', self.options)
+            self.composeFile = 'docker-compose.ui.yml'
+            returnCode = self.composeDocker(self.composeFile, self.options)
             print(f'\n\nCompleted compose with return code ---> {returnCode}')
 
     def composeDocker(self, composeFile, options):
         print(f'Compose docker using file: \n\n  {composeFile}\n\nwith options:\n\n  {options}\n')
         fullComposePath = self.home() + '/' + composeFile
         composeCmd = ['/usr/local/bin/docker-compose', '-f', fullComposePath] + options
-        process = Popen(composeCmd, stdout=PIPE, stderr=PIPE, cwd=self.home())
+        self.process = Popen(composeCmd, stdout=PIPE, stderr=PIPE, cwd=self.home())
         while True:
-            if process.poll() is not None:
+            if self.process.poll() is not None:
                 break
             else:
-                output = process.stdout.readline()
+                output = self.process.stdout.readline()
                 if output:
                     print(output.decode('utf-8').strip())
-        rc = process.wait()
+        rc = self.process.wait()
         if(rc != 0):
-            print(process.stderr.read().decode('utf-8'))
+            print(self.process.stderr.read().decode('utf-8'))
         return rc
 
     def home(self):

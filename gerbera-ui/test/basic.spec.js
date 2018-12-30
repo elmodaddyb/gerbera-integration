@@ -55,7 +55,7 @@ suite(() => {
       it('loads file system and all child directories', async () => {
         await homePage.clickMenu('nav-fs');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(23);
+        expect(tree.length).to.equal(25);
       });
     });
 
