@@ -13,7 +13,7 @@ class Compose:
     
     def __del__(self):
         if(self.process):
-            print('\n\nKilling compose process...\n\n')
+            print('\n\nShutting down docker-compose...\n\n')
             self.process.kill()
             fullComposePath = self.home() + '/' + self.composeFile
             process = Popen(['/usr/local/bin/docker-compose', '-f', fullComposePath, 'down'], stdout=PIPE, stderr=PIPE, cwd=self.home())            
@@ -25,7 +25,7 @@ class Compose:
                     if output:
                         print(output.decode('utf-8').strip())
             rc = process.wait()
-            print(f'compose down exited with rc={rc}')
+            print(f'docker-compose down exited with rc={rc}')
 
     def run(self):
         if(self.action == 'dev'):
