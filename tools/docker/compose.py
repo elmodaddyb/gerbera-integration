@@ -1,4 +1,5 @@
 from subprocess import Popen, PIPE
+import os
 
 class Compose:
     def __init__(self, action, options):
@@ -55,5 +56,4 @@ class Compose:
         return rc
 
     def home(self):
-        ## TODO: get from environment?
-        return '/Users/eamonn/development/gerbera-integration'
+        return os.getenv('GI_HOME')
