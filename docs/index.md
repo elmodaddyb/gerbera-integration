@@ -11,5 +11,17 @@ Below is documentation of the various use cases for the Gerbera Integration Suit
   
 #### [Containers - In Depth](containers.md)  
 > Detailed look at the containers for Gerbera Integration
-  
+
+#### [Gerbera Integration CLI](cli.md)
+> Using the `gi` command line to build and run **gerbera-integration**
+
+### Python Test Suite
+The project contains a set of python tests which run the Gerbera Integration CLI to build the 
+various containers and confirm they operate with the compiled source code.
+
+To run the test suite execute the following command from the root project directory.
+
+```bash
+$ python -m unittest discover -s ./test
+```
 
