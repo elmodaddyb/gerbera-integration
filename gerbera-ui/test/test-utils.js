@@ -1,0 +1,18 @@
+const {Builder} = require('selenium-webdriver');
+let webServer = process.env.GERBERA_BASE_URL;
+const seleniumHub = `http://${process.env.HUB_HOST}:${process.env.HUB_PORT}/wd/hub`;
+
+if(webServer.lastIndexOf('/') === webServer.length - 1) {
+  webServer = webServer.substring(0, webServer.length - 1);
+}
+
+const newRemoteDriver = async () => {
+  console.log(`\n\tGerbera Web UI URL --> ${webServer}`);
+  console.log(`\tSelenium Hub URL   --> ${seleniumHub}\n`);
+  return new Builder().usingServer(seleniumHub).build();
+};
+
+module.exports = {
+  newRemoteDriver,
+  webServer
+};

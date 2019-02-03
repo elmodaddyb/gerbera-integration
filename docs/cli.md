@@ -20,6 +20,12 @@ A python based CLI exists to allow for fast use of the Gerbera Integration suite
 
 ### Cleanup Docker Containers
 
+Cleanup **all** integration items
+
+```bash
+$ gi clean all
+```
+
 Cleanup the **gerbera** containers
 
 ```bash

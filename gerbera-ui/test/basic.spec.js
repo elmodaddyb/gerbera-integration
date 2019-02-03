@@ -1,20 +1,17 @@
 const {expect} = require('chai');
-const {Builder} = require('selenium-webdriver');
 const {suite} = require('selenium-webdriver/testing');
-const webServer = process.env.GERBERA_BASE_URL;
-const seleniumHub = `http://${process.env.HUB_HOST}:${process.env.HUB_PORT}/wd/hub`;
+const {webServer, newRemoteDriver} = require('./test-utils');
 let driver;
 
 const LoginPage = require('./page/login.page');
 const HomePage = require('./page/home.page');
 
 suite(() => {
-  let loginPage, homePage;
+  let loginPage;
+  let homePage;
 
   before(async () => {
-    console.log(`\n\tGerbera Web UI URL --> ${webServer}`);
-    console.log(`\tSelenium Hub URL   --> ${seleniumHub}\n`);
-    driver = new Builder().usingServer(seleniumHub).build();
+    driver = await newRemoteDriver();
     loginPage = new LoginPage(driver);
     homePage = new HomePage(driver);
   });

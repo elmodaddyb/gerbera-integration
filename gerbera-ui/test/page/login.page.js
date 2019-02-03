@@ -71,7 +71,7 @@ module.exports = function (driver) {
       await driver.wait(until.stalenessOf(driver.findElement(By.id('navbarContent'))), 2000);
     } catch (e) {
       // the default `page is ready` check...
-      await driver.wait(until.elementIsVisible(driver.findElement(By.id('login-form'))), 5000);
+      await driver.wait(until.elementIsVisible(driver.findElement(By.id('nav-home'))), 5000);
     }
     await driver.executeScript('$(\'body\').toggleClass(\'notransition\');');
     return await driver.wait(until.elementIsVisible(driver.findElement(By.id('navbarContent'))), 2000);
