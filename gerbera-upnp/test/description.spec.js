@@ -3,7 +3,7 @@ const {parseString} = require('xml2js');
 const request = require('request');
 const {findServiceById, baseUrl} = require('./test-utils');
 
-describe('The UPNP description.xml', () => {
+describe('The UPNP  Description XML', () => {
   let descriptionXml;
   let descriptionJson;
 
