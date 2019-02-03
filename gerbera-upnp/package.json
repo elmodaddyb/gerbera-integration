@@ -1,9 +1,9 @@
 {
-  "name": "gerbera-ui-test",
+  "name": "gerbera-upnp-test",
   "version": "0.0.1",
-  "description": "Gerbera UI Integration Test",
+  "description": "Gerbera UPNP Integration Test",
   "scripts": {
-    "test": "SELENIUM_BROWSER=chrome mocha --require babel-polyfill --require babel-register \"test/**.spec.js\""
+    "test": "mocha --require babel-polyfill --require babel-register \"test/**.spec.js\""
   },
   "config": {
     "webserver": {
@@ -27,6 +27,7 @@
     "babel-register": "^6.26.0",
     "chai": "^4.2.0",
     "mocha": "^5.2.0",
-    "selenium-webdriver": "^4.0.0-alpha.1"
+    "request": "^2.88.0",
+    "xml2js": "^0.4.19"
   }
 }

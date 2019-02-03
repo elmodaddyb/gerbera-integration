@@ -1,0 +1,43 @@
+version: '3'
+services:
+  core:
+    container_name: gerbera-core
+    environment:
+      - CORE_CMD=${CORE_CMD}
+    build:
+      context: ./gerbera-core
+      args:
+        GIT_CMD_CORE: ${GIT_CMD_CORE}
+    ports:
+      - "49152:49152"
+      - "1900:1900/udp"
+    volumes:
+      - gerbera-media:/gerbera-media
+      - gerbera-home:/gerbera-home
+    depends_on:
+      - media
+      - home
+  media:
+    container_name: gerbera-media
+    build:
+      context: ./gerbera-media
+    volumes:
+      - gerbera-media:/gerbera-media
+  upnp:
+    build:
+      context: ./gerbera-upnp
+      args:
+        GIT_CMD_UI: ${GIT_CMD_UI}
+    environment:
+      - GERBERA_BASE_URL=http://gerbera-core:49152
+    depends_on:
+      - core
+  home:
+    container_name: gerbera-home
+    build:
+      context: ./gerbera-home
+    volumes:
+      - gerbera-home:/gerbera-home
+volumes:
+  gerbera-media:
+  gerbera-home:

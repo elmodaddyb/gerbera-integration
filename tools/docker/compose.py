@@ -37,6 +37,10 @@ class Compose:
             self.composeFile = 'docker-compose.ui.yml'
             returnCode = self.composeDocker(self.composeFile, self.options)
             print(f'\n\nCompleted compose with return code ---> {returnCode}')
+        elif(self.action == 'upnp'):
+            self.composeFile = 'docker-compose.upnp.yml'
+            returnCode = self.composeDocker(self.composeFile, self.options)
+            print(f'\n\nCompleted compose with return code ---> {returnCode}')
 
     def composeDocker(self, composeFile, options):
         print(f'Compose docker using file: \n\n  {composeFile}\n\nwith options:\n\n  {options}\n')

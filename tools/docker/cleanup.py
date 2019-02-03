@@ -14,6 +14,8 @@ class Cleanup:
             self.removeImage('gerbera-integration_core')
         elif(self.type == 'ui'):
             self.removeImage('gerbera-integration_ui')
+        elif(self.type == 'upnp'):
+            self.removeImage('gerbera-integration_upnp')
         elif(self.type == 'home'):
             self.removeImage('gerbera-integration_home')
             self.removeVolume('gerbera-integration_gerbera-home')
@@ -25,6 +27,7 @@ class Cleanup:
             self.removeDangling()
             self.removeImage('gerbera-integration_core')
             self.removeImage('gerbera-integration_ui')
+            self.removeImage('gerbera-integration_upnp')
             self.removeImage('gerbera-integration_home')
             self.removeVolume('gerbera-integration_gerbera-home')
             self.removeImage('gerbera-integration_media')
