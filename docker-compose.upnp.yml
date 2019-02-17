@@ -30,6 +30,7 @@ services:
         GIT_CMD_UI: ${GIT_CMD_UI}
     environment:
       - GERBERA_BASE_URL=http://gerbera-core:49152
+      - GERBERA_SERVER_UUID=${GERBERA_SERVER_UUID}
     depends_on:
       - core
   home:

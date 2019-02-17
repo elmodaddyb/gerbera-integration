@@ -1,5 +1,9 @@
 let baseUrl = process.env.GERBERA_BASE_URL;
 
+// TODO: Smartly identify the correct UPNP server that is Gerbera
+// Taken from gerbera-home/config.default.xml
+const GERBERA_SERVER_UUID = process.env.GERBERA_SERVER_UUID;
+
 const findServiceById = (serviceList, serviceId) => {
   const services = serviceList.service;
   let result;
@@ -53,5 +57,6 @@ module.exports = {
   findActionByName,
   findServiceById,
   findStateVariable,
+  GERBERA_SERVER_UUID,
   hasProperArgument
 };

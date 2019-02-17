@@ -1,20 +1,32 @@
 const {expect} = require('chai');
 const {parseString} = require('xml2js');
 const request = require('request');
-const {findServiceById, baseUrl} = require('./test-utils');
+const {findServiceById, GERBERA_SERVER_UUID} = require('./test-utils');
+const ssdpHelper = require('./ssdp-client');
 
-describe('The UPNP  Description XML', () => {
+describe('The UPNP SCDP Description XML', () => {
   let descriptionXml;
   let descriptionJson;
 
   before((done) => {
-    request(baseUrl + '/description.xml', function (error, response, body) {
-      parseString(body, (err, result) => {
-        descriptionXml = body;
-        descriptionJson = result;
-        done();
+    ssdpHelper.client()
+      .then(client => ssdpHelper.search(client, 'urn:schemas-upnp-org:device:MediaServer:1', 5000))
+      .then(responses => ssdpHelper.filterByUSN(responses, GERBERA_SERVER_UUID))
+      .then(servers => ssdpHelper.parseHeader(servers[0], 'LOCATION'))
+      .then((locationHdr) => {
+        const scdpUrl = locationHdr.split(': ')[1].trim();
+        console.log('\tCalling SCDP XML --> ' + scdpUrl);
+        request(scdpUrl, function (error, response, body) {
+          parseString(body, (err, result) => {
+            descriptionXml = body;
+            descriptionJson = result;
+            done();
+          });
+        });
+      })
+      .catch((err) => {
+        done(err)
       });
-    });
   });
   it('is accessible at the root of the web server', () => {
     expect(descriptionXml).not.to.be.undefined;
