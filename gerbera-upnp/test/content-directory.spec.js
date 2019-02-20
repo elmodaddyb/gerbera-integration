@@ -1,19 +1,25 @@
 const {expect} = require('chai');
-const {parseString} = require('xml2js');
-const request = require('request');
-const {findActionByName, findStateVariable, baseUrl} = require('./test-utils');
+const ScdpUtils = require('./scdp-utils');
+const {GERBERA_SERVER_UUID} = require('./test-utils');
 
 describe('The UPNP Content Directory XML', () => {
   let xml;
   let json;
 
   before((done) => {
-    request(baseUrl + '/cds.xml', function (error, response, body) {
-      parseString(body, (err, result) => {
-        xml = body;
-        json = result;
-        done();
-      });
+    ScdpUtils.lookup({
+      serviceType: 'urn:schemas-upnp-org:device:MediaServer:1',
+      waitTime: 5000,
+      udn: GERBERA_SERVER_UUID,
+      serviceId: 'urn:upnp-org:serviceId:ContentDirectory',
+      header: 'LOCATION'
+    }).then((scdp) => {
+      xml = scdp.xml;
+      json = scdp.json;
+      done();
+    })
+    .catch((err) => {
+      done(err)
     });
   });
   it('is accessible at the root of the web server', () => {
@@ -36,23 +42,23 @@ describe('The UPNP Content Directory XML', () => {
       expect(actions.length).to.be.above(0);
     });
     it('and has a Browse Action', () => {
-      const result = findActionByName(actionList, 'Browse');
+      const result = ScdpUtils.findActionByName(actionList, 'Browse');
       expect(result.name[0]).to.equal('Browse');
     });
     it('and has a Search Action', () => {
-      const result = findActionByName(actionList, 'Search');
+      const result = ScdpUtils.findActionByName(actionList, 'Search');
       expect(result.name[0]).to.equal('Search');
     });
     it('and has a GetSearchCapabilities Action', () => {
-      const result = findActionByName(actionList, 'GetSearchCapabilities');
+      const result = ScdpUtils.findActionByName(actionList, 'GetSearchCapabilities');
       expect(result.name[0]).to.equal('GetSearchCapabilities');
     });
     it('and has a GetSortCapabilities Action', () => {
-      const result = findActionByName(actionList, 'GetSortCapabilities');
+      const result = ScdpUtils.findActionByName(actionList, 'GetSortCapabilities');
       expect(result.name[0]).to.equal('GetSortCapabilities');
     });
     it('and has a GetSystemUpdateID Action', () => {
-      const result = findActionByName(actionList, 'GetSystemUpdateID');
+      const result = ScdpUtils.findActionByName(actionList, 'GetSystemUpdateID');
       expect(result.name[0]).to.equal('GetSystemUpdateID');
     });
   });
@@ -68,7 +74,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the Browse Flag variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'BrowseFlag');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'BrowseFlag');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -87,7 +93,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the SearchCriteria variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'SearchCriteria');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SearchCriteria');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -102,7 +108,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the SystemUpdateID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'SystemUpdateID');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SystemUpdateID');
       });
       it('has sendEvents equal to yes', () => {
         expect(stateVariable['$'].sendEvents).to.equal('yes');
@@ -117,7 +123,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the ContainerUpdateIDs variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'ContainerUpdateIDs');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'ContainerUpdateIDs');
       });
       it('has sendEvents equal to yes', () => {
         expect(stateVariable['$'].sendEvents).to.equal('yes');
@@ -132,7 +138,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the Count variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'Count');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'Count');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -147,7 +153,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the SortCriteria variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'SortCriteria');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SortCriteria');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -162,7 +168,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the SortCapabilities variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'SortCapabilities');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SortCapabilities');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -177,7 +183,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the Index variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'Index');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'Index');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -192,7 +198,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the ObjectID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'ObjectID');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'ObjectID');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -207,7 +213,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the UpdateID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'UpdateID');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'UpdateID');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -222,7 +228,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the Result variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'Result');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'Result');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -237,7 +243,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the SearchCapabilities variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'SearchCapabilities');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SearchCapabilities');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -252,7 +258,7 @@ describe('The UPNP Content Directory XML', () => {
     describe('the Filter variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = findStateVariable(serviceStateTable.stateVariable, 'Filter');
+        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'Filter');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');

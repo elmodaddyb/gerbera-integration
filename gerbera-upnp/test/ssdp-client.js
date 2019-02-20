@@ -1,13 +1,16 @@
-const PORT = 1900;
-const HOST = '239.255.255.250';
 const dgram = require('dgram');
 const headers = {
   'LOCATION': /^LOCATION:.*$/
 };
-const MSEARCH = (host, port) => {
+const multicast = {
+  ip: '239.255.255.250',
+  port: 1900
+};
+
+const MSEARCH = (multicast) => {
   const msg = [
     'M-SEARCH * HTTP/1.1',
-    `HOST: ${host}:${port}`,
+    `HOST: ${multicast.ip}:${multicast.port}`,
     'MAN: "ssdp:discover"',
     'ST: urn:schemas-upnp-org:device:MediaServer:1',
     'MX: 5',
@@ -23,11 +26,13 @@ const search = (client, serviceType, wait) => {
       console.log(`\tReceived UDP response from: ${rinfo.address}`);
       endpoints.push(msg);
     });
-    const message = Buffer.from(MSEARCH(HOST, PORT), 'utf-8');
-    client.send(message, 0, message.length, PORT, HOST, function(err, bytes) {
+
+    const message = Buffer.from(MSEARCH(multicast), 'utf-8');
+    client.send(message, 0, message.length, multicast.port, multicast.ip, function(err, bytes) {
       if (err) throw err;
-      console.log('\tUDP message sent to ' + HOST +':'+ PORT);
+      console.log('\tUDP message sent to ' + multicast.ip +':'+ multicast.port);
     });
+
     // UDP responses take 1-2 seconds to return, so wait a time amount
     // to allow for all responses to be recorded.
     setTimeout(() => {
