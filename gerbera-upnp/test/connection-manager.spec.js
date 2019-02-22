@@ -1,5 +1,5 @@
 const {expect} = require('chai');
-const ScdpUtils = require('./scdp-utils');
+const ScpdUtils = require('./scpd-utils');
 const {hasProperArgument, GERBERA_SERVER_UUID} = require('./test-utils');
 
 describe('The UPNP Connection Manager XML', () => {
@@ -7,15 +7,15 @@ describe('The UPNP Connection Manager XML', () => {
   let json;
 
   before((done) => {
-    ScdpUtils.lookup({
+    ScpdUtils.lookup({
       serviceType: 'urn:schemas-upnp-org:device:MediaServer:1',
       waitTime: 5000,
       udn: GERBERA_SERVER_UUID,
       serviceId: 'urn:upnp-org:serviceId:ConnectionManager',
       header: 'LOCATION'
-    }).then((scdp) => {
-      xml = scdp.xml;
-      json = scdp.json;
+    }).then((scpd) => {
+      xml = scpd.xml;
+      json = scpd.json;
       done();
     })
     .catch((err) => {
@@ -44,7 +44,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('and has a Browse Action', () => {
       let action;
       before(() => {
-        action = ScdpUtils.findActionByName(actionList, 'Browse');
+        action = ScpdUtils.findActionByName(actionList, 'Browse');
       });
 
       it('contains an argument list', () => {
@@ -65,7 +65,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('and has a Search Action', () => {
       let action;
       before(() => {
-        action = ScdpUtils.findActionByName(actionList, 'Search');
+        action = ScpdUtils.findActionByName(actionList, 'Search');
       });
 
       it('contains an argument list', () => {
@@ -86,7 +86,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('and has a GetSearchCapabilities Action', () => {
       let action;
       before(() => {
-        action = ScdpUtils.findActionByName(actionList, 'GetSearchCapabilities');
+        action = ScpdUtils.findActionByName(actionList, 'GetSearchCapabilities');
       });
 
       it('contains an argument list', () => {
@@ -98,7 +98,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('and has a GetSortCapabilities Action', () => {
       let action;
       before(() => {
-        action = ScdpUtils.findActionByName(actionList, 'GetSortCapabilities');
+        action = ScpdUtils.findActionByName(actionList, 'GetSortCapabilities');
       });
 
       it('contains an argument list', () => {
@@ -110,7 +110,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('and has a GetSystemUpdateID Action', () => {
       let action;
       before(() => {
-        action = ScdpUtils.findActionByName(actionList, 'GetSystemUpdateID');
+        action = ScpdUtils.findActionByName(actionList, 'GetSystemUpdateID');
       });
 
       it('contains an argument list', () => {
@@ -132,7 +132,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the Browse Flag variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'BrowseFlag');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'BrowseFlag');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -151,7 +151,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the SearchCriteria variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SearchCriteria');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SearchCriteria');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -166,7 +166,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the SystemUpdateID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SystemUpdateID');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SystemUpdateID');
       });
       it('has sendEvents equal to yes', () => {
         expect(stateVariable['$'].sendEvents).to.equal('yes');
@@ -181,7 +181,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the ContainerUpdateIDs variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'ContainerUpdateIDs');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'ContainerUpdateIDs');
       });
       it('has sendEvents equal to yes', () => {
         expect(stateVariable['$'].sendEvents).to.equal('yes');
@@ -196,7 +196,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the Count variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'Count');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Count');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -211,7 +211,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the SortCriteria variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SortCriteria');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SortCriteria');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -226,7 +226,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the SortCapabilities variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SortCapabilities');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SortCapabilities');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -241,7 +241,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the Index variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'Index');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Index');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -256,7 +256,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the ObjectID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'ObjectID');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'ObjectID');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -271,7 +271,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the UpdateID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'UpdateID');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'UpdateID');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -286,7 +286,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the Result variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'Result');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Result');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -301,7 +301,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the SearchCapabilities variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'SearchCapabilities');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SearchCapabilities');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -316,7 +316,7 @@ describe('The UPNP Connection Manager XML', () => {
     describe('the Filter variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'Filter');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Filter');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');

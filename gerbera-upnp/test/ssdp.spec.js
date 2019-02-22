@@ -10,8 +10,8 @@ describe('Gerbera SSDP Broadcast', () => {
         .then(responses => ssdpHelper.filterByUSN(responses, GERBERA_SERVER_UUID))
         .then(servers => ssdpHelper.parseHeader(servers[0], 'LOCATION'))
         .then((locationHdr) => {
-          console.log('\tSCDP XML Location --> '+ locationHdr);
-          expect(locationHdr.includes('/description.xml'), 'Gerbera should return SCDP XML location').to.be.true;
+          console.log('\tSCPD XML Location --> '+ locationHdr);
+          expect(locationHdr.includes('/description.xml'), 'Gerbera should return SCPD XML location').to.be.true;
           done();
         })
         .catch((err) => {

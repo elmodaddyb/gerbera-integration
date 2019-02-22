@@ -1,5 +1,5 @@
 const {expect} = require('chai');
-const ScdpUtils = require('./scdp-utils');
+const ScpdUtils = require('./scpd-utils');
 const {hasProperArgument, GERBERA_SERVER_UUID} = require('./test-utils');
 
 describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
@@ -7,15 +7,15 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
   let json;
 
   before((done) => {
-    ScdpUtils.lookup({
+    ScpdUtils.lookup({
       serviceType: 'urn:schemas-upnp-org:device:MediaServer:1',
       waitTime: 5000,
       udn: GERBERA_SERVER_UUID,
       serviceId: 'urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar',
       header: 'LOCATION'
-    }).then((scdp) => {
-      xml = scdp.xml;
-      json = scdp.json;
+    }).then((scpd) => {
+      xml = scpd.xml;
+      json = scpd.json;
       done();
     })
     .catch((err) => {
@@ -44,7 +44,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('and has a IsAuthorized Action', () => {
       let action;
       before(() => {
-        action = ScdpUtils.findActionByName(actionList, 'IsAuthorized');
+        action = ScpdUtils.findActionByName(actionList, 'IsAuthorized');
       });
 
       it('contains an argument list', () => {
@@ -57,7 +57,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('and has a RegisterDevice Action', () => {
       let action;
       before(() => {
-        action = ScdpUtils.findActionByName(actionList, 'RegisterDevice');
+        action = ScpdUtils.findActionByName(actionList, 'RegisterDevice');
       });
 
       it('contains an argument list', () => {
@@ -70,7 +70,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('and has a IsValidated Action', () => {
       let action;
       before(() => {
-        action = ScdpUtils.findActionByName(actionList, 'IsValidated');
+        action = ScpdUtils.findActionByName(actionList, 'IsValidated');
       });
 
       it('contains an argument list', () => {
@@ -93,7 +93,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('the DeviceID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'DeviceID');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'DeviceID');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -108,7 +108,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('the Result variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'Result');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Result');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -123,7 +123,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('the RegistrationReqMsg variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'RegistrationReqMsg');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'RegistrationReqMsg');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -138,7 +138,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('the RegistrationRespMsg variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'RegistrationRespMsg');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'RegistrationRespMsg');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
@@ -153,7 +153,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('the AuthorizationDeniedUpdateID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'AuthorizationDeniedUpdateID');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'AuthorizationDeniedUpdateID');
       });
       it('has sendEvents equal to yes', () => {
         expect(stateVariable['$'].sendEvents).to.equal('yes');
@@ -168,7 +168,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('the ValidationSucceededUpdateID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'ValidationSucceededUpdateID');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'ValidationSucceededUpdateID');
       });
       it('has sendEvents equal to yes', () => {
         expect(stateVariable['$'].sendEvents).to.equal('yes');
@@ -183,7 +183,7 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
     describe('the ValidationRevokedUpdateID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScdpUtils.findStateVariable(serviceStateTable.stateVariable, 'ValidationRevokedUpdateID');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'ValidationRevokedUpdateID');
       });
       it('has sendEvents equal to yes', () => {
         expect(stateVariable['$'].sendEvents).to.equal('yes');

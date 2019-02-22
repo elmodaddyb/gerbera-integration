@@ -1,20 +1,20 @@
 const {expect} = require('chai');
 const {GERBERA_SERVER_UUID} = require('./test-utils');
-const ScdpUtils = require('./scdp-utils');
+const ScpdUtils = require('./scpd-utils');
 
-describe('The UPNP SCDP Description XML', () => {
+describe('The UPNP SCPD Description XML', () => {
   let xml;
   let json;
 
   before((done) => {
-    ScdpUtils.lookup({
+    ScpdUtils.lookup({
       serviceType: 'urn:schemas-upnp-org:device:MediaServer:1',
       waitTime: 5000,
       udn: GERBERA_SERVER_UUID,
       header: 'LOCATION'
-    }).then((scdp) => {
-      xml = scdp.xml;
-      json = scdp.json;
+    }).then((scpd) => {
+      xml = scpd.xml;
+      json = scpd.json;
       done();
     })
     .catch((err) => {
@@ -84,7 +84,7 @@ describe('The UPNP SCDP Description XML', () => {
         expect(serviceList.service.length).to.be.above(0);
       });
       it('supports ConnectionManager service', () => {
-        service = ScdpUtils.findServiceById(serviceList, 'urn:upnp-org:serviceId:ConnectionManager');
+        service = ScpdUtils.findServiceById(serviceList, 'urn:upnp-org:serviceId:ConnectionManager');
         expect(service.serviceType[0]).to.equal('urn:schemas-upnp-org:service:ConnectionManager:1');
         expect(service.serviceId[0]).to.equal('urn:upnp-org:serviceId:ConnectionManager');
         expect(service.SCPDURL[0]).to.equal('cm.xml');
@@ -92,7 +92,7 @@ describe('The UPNP SCDP Description XML', () => {
         expect(service.eventSubURL[0]).to.equal('/upnp/event/cm');
       });
       it('supports ContentDirectory service', () => {
-        service = ScdpUtils.findServiceById(serviceList, 'urn:upnp-org:serviceId:ContentDirectory');
+        service = ScpdUtils.findServiceById(serviceList, 'urn:upnp-org:serviceId:ContentDirectory');
         expect(service.serviceType[0]).to.equal('urn:schemas-upnp-org:service:ContentDirectory:1');
         expect(service.serviceId[0]).to.equal('urn:upnp-org:serviceId:ContentDirectory');
         expect(service.SCPDURL[0]).to.equal('cds.xml');
@@ -100,7 +100,7 @@ describe('The UPNP SCDP Description XML', () => {
         expect(service.eventSubURL[0]).to.equal('/upnp/event/cds');
       });
       it('supports Microsoft MediaReceiverRegistrar service', () => {
-        service = ScdpUtils.findServiceById(serviceList, 'urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar');
+        service = ScpdUtils.findServiceById(serviceList, 'urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar');
         expect(service.serviceType[0]).to.equal('urn:microsoft.com:service:X_MS_MediaReceiverRegistrar:1');
         expect(service.serviceId[0]).to.equal('urn:microsoft.com:serviceId:X_MS_MediaReceiverRegistrar');
         expect(service.SCPDURL[0]).to.equal('mr_reg.xml');

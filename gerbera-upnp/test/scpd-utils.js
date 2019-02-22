@@ -34,12 +34,12 @@ const findStateVariable = (list, name) => {
   return result;
 };
 
-const parseScdpUrlForServiceId = (json, serviceId) => {
+const parseScpdUrlForServiceId = (json, serviceId) => {
   const URLBase = json.root.URLBase[0];
   const serviceList = json.root.device[0].serviceList[0];
   const service = findServiceById(serviceList, serviceId);
-  const SCDPURL = service.SCPDURL;
-  return URLBase + SCDPURL;
+  const SCPDURL = service.SCPDURL;
+  return URLBase + SCPDURL;
 };
 
 const lookup = (upnpConfig) => {
@@ -48,12 +48,12 @@ const lookup = (upnpConfig) => {
       .then(client => ssdpHelper.search(client, upnpConfig.serviceType, upnpConfig.waitTime))
       .then(responses => ssdpHelper.filterByUSN(responses, upnpConfig.udn))
       .then(servers => ssdpHelper.parseHeader(servers[0], upnpConfig.header))
-      .then(locationHdr => retrieveDescriptionSCDP(locationHdr))
-      .then((descSCDP) => {
+      .then(locationHdr => retrieveDescriptionSCPD(locationHdr))
+      .then((descSCPD) => {
         if(upnpConfig.serviceId) {
-          retrieveServiceSCDP(descSCDP.json, upnpConfig.serviceId).then(result => resolve(result));
+          retrieveServiceSCPD(descSCPD.json, upnpConfig.serviceId).then(result => resolve(result));
         } else {
-          resolve(descSCDP);
+          resolve(descSCPD);
         }
       })
       .catch((err) => {
@@ -62,11 +62,11 @@ const lookup = (upnpConfig) => {
   });
 };
 
-const retrieveDescriptionSCDP = (locationHeader) => {
+const retrieveDescriptionSCPD = (locationHeader) => {
   return new Promise((resolve, reject) => {
-    const scdpUrl = locationHeader.split(': ')[1].trim();
-    console.log('\tCalling SCDP XML --> ' + scdpUrl);
-    request(scdpUrl, function (error, response, body) {
+    const scpdUrl = locationHeader.split(': ')[1].trim();
+    console.log('\tCalling SCPD XML --> ' + scpdUrl);
+    request(scpdUrl, function (error, response, body) {
       parseString(body, (err, result) => {
         if(err) {
           reject(err);
@@ -80,10 +80,10 @@ const retrieveDescriptionSCDP = (locationHeader) => {
   });
 };
 
-const retrieveServiceSCDP = (descJson, serviceId) => {
+const retrieveServiceSCPD = (descJson, serviceId) => {
   return new Promise((resolve, reject) => {
-    const url = parseScdpUrlForServiceId(descJson, serviceId);
-    console.log('\tService SCDP URL ---> ' + url);
+    const url = parseScpdUrlForServiceId(descJson, serviceId);
+    console.log('\tService SCPD URL ---> ' + url);
     request(url, function (error, response, body) {
       parseString(body, (err, result) => {
         if(err) {
@@ -103,6 +103,6 @@ export {
   findServiceById,
   findActionByName,
   findStateVariable,
-  parseScdpUrlForServiceId,
+  parseScpdUrlForServiceId,
   lookup
 }
