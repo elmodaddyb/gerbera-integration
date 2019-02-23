@@ -17,7 +17,7 @@ class Compose:
             print('\n\nShutting down docker-compose...\n\n')
             self.process.kill()
             fullComposePath = self.home() + '/' + self.composeFile
-            process = Popen(['/usr/local/bin/docker-compose', '-f', fullComposePath, 'down'], stdout=PIPE, stderr=PIPE, cwd=self.home())            
+            process = Popen(['docker-compose', '-f', fullComposePath, 'down'], stdout=PIPE, stderr=PIPE, cwd=self.home())
             while True:
                 if process.poll() is not None:
                     break
@@ -45,7 +45,7 @@ class Compose:
     def composeDocker(self, composeFile, options):
         print(f'Compose docker using file: \n\n  {composeFile}\n\nwith options:\n\n  {options}\n')
         fullComposePath = self.home() + '/' + composeFile
-        composeCmd = ['/usr/local/bin/docker-compose', '-f', fullComposePath] + options
+        composeCmd = ['docker-compose', '-f', fullComposePath] + options
         self.process = Popen(composeCmd, stdout=PIPE, stderr=PIPE, cwd=self.home())
         while True:
             if self.process.poll() is not None:
