@@ -41,82 +41,48 @@ describe('The UPNP Connection Manager XML', () => {
       const actions = actionList.action;
       expect(actions.length).to.be.above(0);
     });
-    describe('and has a Browse Action', () => {
+    describe('and has a GetCurrentConnectionIDs Action', () => {
       let action;
       before(() => {
-        action = ScpdUtils.findActionByName(actionList, 'Browse');
+        action = ScpdUtils.findActionByName(actionList, 'GetCurrentConnectionIDs');
       });
 
       it('contains an argument list', () => {
         const args = action.argumentList[0].argument;
-        expect(action.name[0]).to.equal('Browse');
-        expect(hasProperArgument(args, 'ObjectID', 'in', 'A_ARG_TYPE_ObjectID')).to.equal(true);
-        expect(hasProperArgument(args, 'BrowseFlag', 'in', 'A_ARG_TYPE_BrowseFlag')).to.equal(true);
-        expect(hasProperArgument(args, 'Filter', 'in', 'A_ARG_TYPE_Filter')).to.equal(true);
-        expect(hasProperArgument(args, 'StartingIndex', 'in', 'A_ARG_TYPE_Index')).to.equal(true);
-        expect(hasProperArgument(args, 'RequestedCount', 'in', 'A_ARG_TYPE_Count')).to.equal(true);
-        expect(hasProperArgument(args, 'SortCriteria', 'in', 'A_ARG_TYPE_SortCriteria')).to.equal(true);
-        expect(hasProperArgument(args, 'Result', 'out', 'A_ARG_TYPE_Result')).to.equal(true);
-        expect(hasProperArgument(args, 'NumberReturned', 'out', 'A_ARG_TYPE_Count')).to.equal(true);
-        expect(hasProperArgument(args, 'TotalMatches', 'out', 'A_ARG_TYPE_Count')).to.equal(true);
-        expect(hasProperArgument(args, 'UpdateID', 'out', 'A_ARG_TYPE_UpdateID')).to.equal(true);
+        expect(action.name[0]).to.equal('GetCurrentConnectionIDs');
+        expect(hasProperArgument(args, 'ConnectionIDs', 'out', 'CurrentConnectionIDs')).to.equal(true);
       });
     });
-    describe('and has a Search Action', () => {
+    describe('and has a GetCurrentConnectionInfo Action', () => {
       let action;
       before(() => {
-        action = ScpdUtils.findActionByName(actionList, 'Search');
+        action = ScpdUtils.findActionByName(actionList, 'GetCurrentConnectionInfo');
       });
 
       it('contains an argument list', () => {
         const args = action.argumentList[0].argument;
-        expect(action.name[0]).to.equal('Search');
-        expect(hasProperArgument(args, 'ContainerID', 'in', 'A_ARG_TYPE_ObjectID')).to.equal(true);
-        expect(hasProperArgument(args, 'SearchCriteria', 'in', 'A_ARG_TYPE_SearchCriteria')).to.equal(true);
-        expect(hasProperArgument(args, 'Filter', 'in', 'A_ARG_TYPE_Filter')).to.equal(true);
-        expect(hasProperArgument(args, 'StartingIndex', 'in', 'A_ARG_TYPE_Index')).to.equal(true);
-        expect(hasProperArgument(args, 'RequestedCount', 'in', 'A_ARG_TYPE_Count')).to.equal(true);
-        expect(hasProperArgument(args, 'SortCriteria', 'in', 'A_ARG_TYPE_SortCriteria')).to.equal(true);
-        expect(hasProperArgument(args, 'Result', 'out', 'A_ARG_TYPE_Result')).to.equal(true);
-        expect(hasProperArgument(args, 'NumberReturned', 'out', 'A_ARG_TYPE_Count')).to.equal(true);
-        expect(hasProperArgument(args, 'TotalMatches', 'out', 'A_ARG_TYPE_Count')).to.equal(true);
-        expect(hasProperArgument(args, 'UpdateID', 'out', 'A_ARG_TYPE_UpdateID')).to.equal(true);
+        expect(action.name[0]).to.equal('GetCurrentConnectionInfo');
+        expect(hasProperArgument(args, 'ConnectionID', 'in', 'A_ARG_TYPE_ConnectionID'), 'ConnectionID').to.equal(true);
+        expect(hasProperArgument(args, 'RcsID', 'out', 'A_ARG_TYPE_RcsID'), 'RcsID').to.equal(true);
+        expect(hasProperArgument(args, 'AVTransportID', 'out', 'A_ARG_TYPE_AVTransportID'), 'AVTransportID').to.equal(true);
+        expect(hasProperArgument(args, 'ProtocolInfo', 'out', 'A_ARG_TYPE_ProtocolInfo'), 'ProtocolInfo').to.equal(true);
+        expect(hasProperArgument(args, 'PeerConnectionManager', 'out', 'A_ARG_TYPE_ConnectionManager'), 'PeerConnectionManager').to.equal(true);
+        expect(hasProperArgument(args, 'PeerConnectionID', 'out', 'A_ARG_TYPE_ConnectionID'), 'PeerConnectionID').to.equal(true);
+        expect(hasProperArgument(args, 'Direction', 'out', 'A_ARG_TYPE_Direction'), 'Direction').to.equal(true);
+        expect(hasProperArgument(args, 'Status', 'out', 'A_ARG_TYPE_ConnectionStatus'), 'Status').to.equal(true);
       });
     });
-    describe('and has a GetSearchCapabilities Action', () => {
+    describe('and has a GetProtocolInfo Action', () => {
       let action;
       before(() => {
-        action = ScpdUtils.findActionByName(actionList, 'GetSearchCapabilities');
+        action = ScpdUtils.findActionByName(actionList, 'GetProtocolInfo');
       });
 
       it('contains an argument list', () => {
         const args = action.argumentList[0].argument;
-        expect(action.name[0]).to.equal('GetSearchCapabilities');
-        expect(hasProperArgument(args, 'SearchCaps', 'out', 'SearchCapabilities')).to.equal(true);
-      });
-    });
-    describe('and has a GetSortCapabilities Action', () => {
-      let action;
-      before(() => {
-        action = ScpdUtils.findActionByName(actionList, 'GetSortCapabilities');
-      });
-
-      it('contains an argument list', () => {
-        const args = action.argumentList[0].argument;
-        expect(action.name[0]).to.equal('GetSortCapabilities');
-        expect(hasProperArgument(args, 'SortCaps', 'out', 'SortCapabilities')).to.equal(true);
-      });
-    });
-    describe('and has a GetSystemUpdateID Action', () => {
-      let action;
-      before(() => {
-        action = ScpdUtils.findActionByName(actionList, 'GetSystemUpdateID');
-      });
-
-      it('contains an argument list', () => {
-        const args = action.argumentList[0].argument;
-        expect(action.name[0]).to.equal('GetSystemUpdateID');
-        expect(hasProperArgument(args, 'Id', 'out', 'SystemUpdateID')).to.equal(true);
+        expect(action.name[0]).to.equal('GetProtocolInfo');
+        expect(hasProperArgument(args, 'Source', 'out', 'SourceProtocolInfo')).to.equal(true);
+        expect(hasProperArgument(args, 'Sink', 'out', 'SinkProtocolInfo')).to.equal(true);
       });
     });
   });
@@ -129,200 +95,160 @@ describe('The UPNP Connection Manager XML', () => {
       const stateVariable = serviceStateTable.stateVariable;
       expect(stateVariable.length).to.be.above(0);
     });
-    describe('the Browse Flag variable', () => {
+    describe('the TYPE_ProtocolInfo variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'BrowseFlag');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'TYPE_ProtocolInfo');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
       });
       it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_BrowseFlag');
+        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_ProtocolInfo');
+      });
+      it('has dataType of string', () => {
+        expect(stateVariable.dataType[0]).to.equal('string');
+      });
+    });
+    describe('the ConnectionStatus variable', () => {
+      let stateVariable;
+      before(() => {
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'ConnectionStatus');
+      });
+      it('has sendEvents equal to no', () => {
+        expect(stateVariable['$'].sendEvents).to.equal('no');
+      });
+      it('has name', () => {
+        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_ConnectionStatus');
       });
       it('has dataType of string', () => {
         expect(stateVariable.dataType[0]).to.equal('string');
       });
       it('has allowed value list', () => {
         const allowedValue = stateVariable.allowedValueList[0].allowedValue;
-        expect(allowedValue).to.include.members(['BrowseMetadata', 'BrowseDirectChildren']);
+        expect(allowedValue).to.include.members(['OK', 'ContentFormatMismatch', 'InsufficientBandwidth',
+          'UnreliableChannel', 'Unknown']);
       });
     });
-    describe('the SearchCriteria variable', () => {
+    describe('the AVTransportID variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SearchCriteria');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'AVTransportID');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
       });
       it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_SearchCriteria');
+        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_AVTransportID');
+      });
+      it('has dataType of i4', () => {
+        expect(stateVariable.dataType[0]).to.equal('i4');
+      });
+    });
+    describe('the RcsID variable', () => {
+      let stateVariable;
+      before(() => {
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'RcsID');
+      });
+      it('has sendEvents equal to no', () => {
+        expect(stateVariable['$'].sendEvents).to.equal('no');
+      });
+      it('has name', () => {
+        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_RcsID');
+      });
+      it('has dataType of i4', () => {
+        expect(stateVariable.dataType[0]).to.equal('i4');
+      });
+    });
+    describe('the ConnectionID variable', () => {
+      let stateVariable;
+      before(() => {
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'ConnectionID');
+      });
+      it('has sendEvents equal to no', () => {
+        expect(stateVariable['$'].sendEvents).to.equal('no');
+      });
+      it('has name', () => {
+        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_ConnectionID');
+      });
+      it('has dataType of i4', () => {
+        expect(stateVariable.dataType[0]).to.equal('i4');
+      });
+    });
+    describe('the ConnectionManager variable', () => {
+      let stateVariable;
+      before(() => {
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'ConnectionManager');
+      });
+      it('has sendEvents equal to no', () => {
+        expect(stateVariable['$'].sendEvents).to.equal('no');
+      });
+      it('has name', () => {
+        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_ConnectionManager');
       });
       it('has dataType of string', () => {
         expect(stateVariable.dataType[0]).to.equal('string');
       });
     });
-    describe('the SystemUpdateID variable', () => {
+    describe('the SourceProtocolInfo variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SystemUpdateID');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SourceProtocolInfo');
       });
       it('has sendEvents equal to yes', () => {
         expect(stateVariable['$'].sendEvents).to.equal('yes');
       });
       it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('SystemUpdateID');
+        expect(stateVariable.name[0]).to.equal('SourceProtocolInfo');
       });
-      it('has dataType of ui4', () => {
-        expect(stateVariable.dataType[0]).to.equal('ui4');
+      it('has dataType of string', () => {
+        expect(stateVariable.dataType[0]).to.equal('string');
       });
     });
-    describe('the ContainerUpdateIDs variable', () => {
+    describe('the SinkProtocolInfo variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'ContainerUpdateIDs');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SinkProtocolInfo');
       });
       it('has sendEvents equal to yes', () => {
         expect(stateVariable['$'].sendEvents).to.equal('yes');
       });
       it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('ContainerUpdateIDs');
+        expect(stateVariable.name[0]).to.equal('SinkProtocolInfo');
       });
       it('has dataType of string', () => {
         expect(stateVariable.dataType[0]).to.equal('string');
       });
     });
-    describe('the Count variable', () => {
+    describe('the Direction variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Count');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Direction');
       });
       it('has sendEvents equal to no', () => {
         expect(stateVariable['$'].sendEvents).to.equal('no');
       });
       it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_Count');
-      });
-      it('has dataType of ui4', () => {
-        expect(stateVariable.dataType[0]).to.equal('ui4');
-      });
-    });
-    describe('the SortCriteria variable', () => {
-      let stateVariable;
-      before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SortCriteria');
-      });
-      it('has sendEvents equal to no', () => {
-        expect(stateVariable['$'].sendEvents).to.equal('no');
-      });
-      it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_SortCriteria');
+        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_Direction');
       });
       it('has dataType of string', () => {
         expect(stateVariable.dataType[0]).to.equal('string');
       });
-    });
-    describe('the SortCapabilities variable', () => {
-      let stateVariable;
-      before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SortCapabilities');
-      });
-      it('has sendEvents equal to no', () => {
-        expect(stateVariable['$'].sendEvents).to.equal('no');
-      });
-      it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('SortCapabilities');
-      });
-      it('has dataType of string', () => {
-        expect(stateVariable.dataType[0]).to.equal('string');
+      it('has allowed value list', () => {
+        const allowedValue = stateVariable.allowedValueList[0].allowedValue;
+        expect(allowedValue).to.include.members(['Input','Output']);
       });
     });
-    describe('the Index variable', () => {
+    describe('the CurrentConnectionIDs variable', () => {
       let stateVariable;
       before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Index');
+        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'CurrentConnectionIDs');
       });
-      it('has sendEvents equal to no', () => {
-        expect(stateVariable['$'].sendEvents).to.equal('no');
-      });
-      it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_Index');
-      });
-      it('has dataType of ui4', () => {
-        expect(stateVariable.dataType[0]).to.equal('ui4');
-      });
-    });
-    describe('the ObjectID variable', () => {
-      let stateVariable;
-      before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'ObjectID');
-      });
-      it('has sendEvents equal to no', () => {
-        expect(stateVariable['$'].sendEvents).to.equal('no');
+      it('has sendEvents equal to yes', () => {
+        expect(stateVariable['$'].sendEvents).to.equal('yes');
       });
       it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_ObjectID');
-      });
-      it('has dataType of string', () => {
-        expect(stateVariable.dataType[0]).to.equal('string');
-      });
-    });
-    describe('the UpdateID variable', () => {
-      let stateVariable;
-      before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'UpdateID');
-      });
-      it('has sendEvents equal to no', () => {
-        expect(stateVariable['$'].sendEvents).to.equal('no');
-      });
-      it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_UpdateID');
-      });
-      it('has dataType of ui4', () => {
-        expect(stateVariable.dataType[0]).to.equal('ui4');
-      });
-    });
-    describe('the Result variable', () => {
-      let stateVariable;
-      before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Result');
-      });
-      it('has sendEvents equal to no', () => {
-        expect(stateVariable['$'].sendEvents).to.equal('no');
-      });
-      it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_Result');
-      });
-      it('has dataType of string', () => {
-        expect(stateVariable.dataType[0]).to.equal('string');
-      });
-    });
-    describe('the SearchCapabilities variable', () => {
-      let stateVariable;
-      before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'SearchCapabilities');
-      });
-      it('has sendEvents equal to no', () => {
-        expect(stateVariable['$'].sendEvents).to.equal('no');
-      });
-      it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('SearchCapabilities');
-      });
-      it('has dataType of string', () => {
-        expect(stateVariable.dataType[0]).to.equal('string');
-      });
-    });
-    describe('the Filter variable', () => {
-      let stateVariable;
-      before(() => {
-        stateVariable = ScpdUtils.findStateVariable(serviceStateTable.stateVariable, 'Filter');
-      });
-      it('has sendEvents equal to no', () => {
-        expect(stateVariable['$'].sendEvents).to.equal('no');
-      });
-      it('has name', () => {
-        expect(stateVariable.name[0]).to.equal('A_ARG_TYPE_Filter');
+        expect(stateVariable.name[0]).to.equal('CurrentConnectionIDs');
       });
       it('has dataType of string', () => {
         expect(stateVariable.dataType[0]).to.equal('string');

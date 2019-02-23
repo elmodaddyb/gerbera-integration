@@ -26,8 +26,9 @@ const findActionByName = (list, name) => {
 
 const findStateVariable = (list, name) => {
   let result;
+  const regex = new RegExp('.*'+ name + '$');
   list.forEach((variable) => {
-    if(variable.name[0].includes(name)) {
+    if(variable.name[0].match(regex)) {
       result = variable;
     }
   });
@@ -51,7 +52,9 @@ const lookup = (upnpConfig) => {
       .then(locationHdr => retrieveDescriptionSCPD(locationHdr))
       .then((descSCPD) => {
         if(upnpConfig.serviceId) {
-          retrieveServiceSCPD(descSCPD.json, upnpConfig.serviceId).then(result => resolve(result));
+          retrieveServiceSCPD(descSCPD.json, upnpConfig.serviceId).then((result) =>  {
+            resolve(result);
+          });
         } else {
           resolve(descSCPD);
         }
