@@ -58,20 +58,8 @@ describe('The UPNP Content Directory Service', () => {
       const browseResponse = didl.json['s:Envelope']['s:Body'][0]['u:BrowseResponse'][0];
       expect(browseResponse).to.not.be.undefined;
       expect(browseResponse.Result).to.not.be.undefined;
-      expect(browseResponse.NumberReturned[0]).to.equal("4");
-      expect(browseResponse.TotalMatches[0]).to.equal("4");
-    });
-    it('with Audio container in the DIDL-Lite response', (done) => {
-      let topItem;
-      const browseResponse = didl.json['s:Envelope']['s:Body'][0]['u:BrowseResponse'][0];
-      DidlUtils.asJson(browseResponse.Result[0]).then((didlJson) => {
-        expect(didlJson).to.not.be.undefined;
-        topItem = DidlUtils.findContainer(didlJson, {'dc:title' : 'Audio'});
-        expect(topItem['dc:title'][0]).to.equal('Audio');
-        expect(topItem['upnp:class'][0]).to.equal('object.container');
-        done();
-      }).catch((err) => done(err));
-
+      expect(browseResponse.NumberReturned[0]).to.equal("1");
+      expect(browseResponse.TotalMatches[0]).to.equal("1");
     });
     it('with PC Directory container in the DIDL-Lite response', (done) => {
       let topItem;
@@ -80,28 +68,6 @@ describe('The UPNP Content Directory Service', () => {
         expect(didlJson).to.not.be.undefined;
         topItem = DidlUtils.findContainer(didlJson, {'dc:title' : 'PC Directory'});
         expect(topItem['dc:title'][0]).to.equal('PC Directory');
-        expect(topItem['upnp:class'][0]).to.equal('object.container');
-        done();
-      }).catch((err) => done(err));
-    });
-    it('with Playlists container in the DIDL-Lite response', (done) => {
-      let topItem;
-      const browseResponse = didl.json['s:Envelope']['s:Body'][0]['u:BrowseResponse'][0];
-      DidlUtils.asJson(browseResponse.Result[0]).then((didlJson) => {
-        expect(didlJson).to.not.be.undefined;
-        topItem = DidlUtils.findContainer(didlJson, {'dc:title' : 'Playlists'});
-        expect(topItem['dc:title'][0]).to.equal('Playlists');
-        expect(topItem['upnp:class'][0]).to.equal('object.container');
-        done();
-      }).catch((err) => done(err));
-    });
-    it('with Video container in the DIDL-Lite response', (done) => {
-      let topItem;
-      const browseResponse = didl.json['s:Envelope']['s:Body'][0]['u:BrowseResponse'][0];
-      DidlUtils.asJson(browseResponse.Result[0]).then((didlJson) => {
-        expect(didlJson).to.not.be.undefined;
-        topItem = DidlUtils.findContainer(didlJson, {'dc:title' : 'Video'});
-        expect(topItem['dc:title'][0]).to.equal('Video');
         expect(topItem['upnp:class'][0]).to.equal('object.container');
         done();
       }).catch((err) => done(err));
