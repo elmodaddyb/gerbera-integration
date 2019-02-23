@@ -1,6 +1,6 @@
 const {expect} = require('chai');
-const ScpdUtils = require('./scpd-utils');
-const {hasProperArgument, GERBERA_SERVER_UUID} = require('./test-utils');
+const ScpdUtils = require('../utils/scpd-utils');
+const {hasProperArgument, GERBERA_SERVER_UUID} = require('../utils/test-utils');
 
 describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
   let xml;

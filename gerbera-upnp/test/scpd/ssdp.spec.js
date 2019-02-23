@@ -1,6 +1,6 @@
 const {expect} = require('chai');
-const ssdpHelper = require('./ssdp-client');
-const {GERBERA_SERVER_UUID} = require('./test-utils');
+const ssdpHelper = require('../utils/ssdp-client');
+const {GERBERA_SERVER_UUID} = require('../utils/test-utils');
 
 describe('Gerbera SSDP Broadcast', () => {
   describe('M-SEARCH', () => {

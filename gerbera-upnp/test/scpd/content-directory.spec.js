@@ -1,6 +1,6 @@
 const {expect} = require('chai');
-const ScpdUtils = require('./scpd-utils');
-const {GERBERA_SERVER_UUID} = require('./test-utils');
+const ScpdUtils = require('../utils/scpd-utils');
+const {GERBERA_SERVER_UUID} = require('../utils/test-utils');
 
 describe('The UPNP Content Directory XML', () => {
   let xml;

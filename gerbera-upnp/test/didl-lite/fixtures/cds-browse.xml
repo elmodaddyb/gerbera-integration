@@ -1,0 +1,12 @@
+<s:Envelope xmlns:s="http://schemas.xmlsoap.org/soap/envelope/" s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+    <s:Body>
+        <u:Browse xmlns:u="{{serviceType}}">
+            <ObjectID>{{ObjectId}}</ObjectID>
+            <BrowseFlag>{{BrowseFlag}}</BrowseFlag>
+            <Filter>{{Filter}}</Filter>
+            <StartingIndex>{{StartingIndex}}</StartingIndex>
+            <RequestedCount>{{RequestedCount}}</RequestedCount>
+            <SortCriteria/>
+        </u:Browse>
+    </s:Body>
+</s:Envelope>

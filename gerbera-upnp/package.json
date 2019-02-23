@@ -3,13 +3,7 @@
   "version": "0.0.1",
   "description": "Gerbera UPNP Integration Test",
   "scripts": {
-    "test": "mocha --require babel-polyfill --require babel-register \"test/**.spec.js\""
-  },
-  "config": {
-    "webserver": {
-      "port": 49152,
-      "host": "localhost"
-    }
+    "test": "mocha --require babel-polyfill --require babel-register \"test/**/**.spec.js\""
   },
   "repository": {
     "type": "git",
