@@ -2,10 +2,10 @@
 from subprocess import Popen, PIPE
 import os, unittest
 
-class BuildDockerUi(unittest.TestCase):
+class BuildDockerUpnp(unittest.TestCase):
 
-    def test_buildDockerUi(self):
-        giCmd = ['/usr/local/bin/python3', 'gerbera-cli.py', 'build', 'ui']
+    def test_buildDockerUpnp(self):
+        giCmd = ['/usr/local/bin/python3', 'gerbera-cli.py', 'build', 'upnp']
         process = Popen(giCmd, stdout=PIPE, stderr=PIPE, cwd=r'./tools')
         stdout, stderr = process.communicate()
 
@@ -17,8 +17,8 @@ class BuildDockerUi(unittest.TestCase):
                 homeTagged = True
             elif 'Successfully tagged gerbera-integration_media:latest' in ln:
                 mediaTagged = True
-            elif 'Successfully tagged gerbera-integration_ui:latest' in ln:
-                uiTagged = True
+            elif 'Successfully tagged gerbera-integration_upnp:latest' in ln:
+                upnpTagged = True
 
         if process.returncode != 0:
             print (stderr)
@@ -27,7 +27,7 @@ class BuildDockerUi(unittest.TestCase):
         self.assertTrue(coreTagged, 'gerbera-core tagged successfully')
         self.assertTrue(homeTagged, 'gerbera-home tagged successfully')
         self.assertTrue(mediaTagged, 'gerbera-media tagged successfully')
-        self.assertTrue(uiTagged, 'gerbera-ui tagged successfully')
+        self.assertTrue(upnpTagged, 'gerbera-upnp tagged successfully')
 
 if __name__ == '__main__':
     unittest.main()

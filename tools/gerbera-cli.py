@@ -8,25 +8,27 @@
 import argparse, signal, sys
 from docker import *
 
-def identifyAction(scope, action, options):
-    print(f'scope={scope} , action={action}, options={options}')
-    if(scope == 'clean'):
-        return Cleanup(action)
-    elif(scope == 'compose'):
-        return Compose(action, options)
+def identifyAction(action, scope, options):
+    print(f'action={action}, scope={scope}, options={options}')
+    if(action == 'clean'):
+        return Cleanup(scope)
+    elif(action == 'build'):
+        return Compose(scope, 'build')
+    elif(action == 'test'):
+        return Compose(scope, 'up')
     return None
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('scope', help='The scope of gerbera-integration to run the action')
-    parser.add_argument('action', help='The action to run upon the gerbera-integration scope')
+    parser.add_argument('action', help='The action to run for gerbera-integration (build, test)')
+    parser.add_argument('scope', help='The scope of the integration test (dev, ui, upnp)')
     parser.add_argument('--options', help='The options to pass to the action')
     args = parser.parse_args()
 
     signal.signal(signal.SIGINT, signal_handler)
 
     # Determine Action and run
-    action = identifyAction(args.scope, args.action, args.options)
+    action = identifyAction(args.action, args.scope, args.options)
     if (action):
         action.run()
 

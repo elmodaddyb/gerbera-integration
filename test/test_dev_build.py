@@ -5,7 +5,7 @@ import os, unittest
 class BuildDockerDev(unittest.TestCase):
 
     def test_buildDockerDev(self):
-        giCmd = ['/usr/local/bin/python3', 'gerbera-cli.py', 'compose', 'dev', '--options=build']
+        giCmd = ['/usr/local/bin/python3', 'gerbera-cli.py', 'build', 'dev']
         process = Popen(giCmd, stdout=PIPE, stderr=PIPE, cwd=r'./tools')
         stdout, stderr = process.communicate()
 

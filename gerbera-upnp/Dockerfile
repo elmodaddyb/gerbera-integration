@@ -19,8 +19,8 @@ RUN apt-get install -y git
 ##--------------------------------------
 ## Download Gerbera Integration Project
 ##--------------------------------------
-ARG GIT_CMD_UI
-RUN $GIT_CMD_UI
+ARG GIT_CMD_INT
+RUN $GIT_CMD_INT
 
 ##--------------------------------------
 ## Run the UPNP Testing

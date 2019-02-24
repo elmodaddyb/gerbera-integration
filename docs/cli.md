@@ -33,6 +33,7 @@ $ gi clean ui
 $ gi clean core
 $ gi clean media
 $ gi clean home
+$ gi clean upnp
 ```
 
 Cleanup the docker containers
@@ -42,30 +43,62 @@ $ gi clean exited
 $ gi clean dangling
 ```
 
-### Compose Docker Containers
+Compose Docker Containers
+---------------------------------
 
-Build the Gerbera DEV containers
+#### Build the Gerbera DEV containers
+_Includes_
+* gerbera-core
+* gerbera-home
+* gerbera-media
+* selenium-hub
+* chrome
 
 ```bash
-$ gi compose dev --options=build
+$ gi build dev
 ```
 
 Run the Gerbera DEV containers
 > This will run forever
 
 ```bash
-$ gi compose dev --options=up
+$ gi test dev
 ```
-
-Build the Gerbera UI containers
+---------------------------------
+#### Build the Gerbera UI containers
+_Includes_
+* gerbera-core
+* gerbera-home
+* gerbera-media
+* gerbera-ui
+* selenium-hub
+* chrome
 
 ```bash
-$ gi compose ui --options=build
+$ gi build ui
 ```
 
 Run the Gerbera ui containers
 > This will run the UI test suite and exit
 
 ```bash
-$ gi compose ui --options=up
+$ gi test ui
+```
+---------------------------------
+#### Build the Gerbera UPNP container
+_Includes_
+* gerbera-core
+* gerbera-home
+* gerbera-media
+* gerbera-upnp
+
+```bash
+$ gi build upnp
+```
+
+Run the Gerbera UPNP container
+> This will run the UPNP test suite and exit
+
+```bash
+$ gi test upnp
 ```

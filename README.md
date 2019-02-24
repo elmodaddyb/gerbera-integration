@@ -14,6 +14,16 @@ $ docker-compose -f docker-compose.ui.yml build
 $ docker-compose -f docker-compose.ui.yml up --abort-on-container-exit
 ```
 
+# Quick UPNP Integration Test
+
+```
+// Build the docker containers
+$ docker-compose -f docker-compose.upnp.yml build
+
+// Run the test suite
+$ docker-compose -f docker-compose.upnp.yml up --abort-on-container-exit
+```
+
 # Quick Local Development
 
 > The `docker-compose.dev.yml` excludes the **gerbera-ui** container
@@ -51,7 +61,7 @@ The `docker-compose` system uses the `.env` file to inject the GIT commands used
 1. Open the `.env` file at the root of the project
 2. Modify the `GIT_CMD_CORE` variable to change the source code path checkout for the **gerbera-core** container
     * Do this when you want to point to new Gerbera Media Server code
-3. Modify the `GIT_CMD_UI` variable to change the source code path checkout for the **gerbera-ui** container
+3. Modify the `GIT_CMD_INT` variable to change the source code path checkout for the **gerbera-ui** or **gerbera-upnp** container
     * Do this when you want to point to new integration test code
 
 > **NOTE** Changing the `git commands` requires a rebuild of the containers.  

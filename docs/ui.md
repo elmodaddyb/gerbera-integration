@@ -22,4 +22,6 @@ This will launch all the containers and run the UI integration test suite.
 The system aborts all containers when the **gerbera-ui** container exits upon
 completion of the tests.
 
+> Try using the [Gerbera CLI](cli.md) ---> `gi test ui`
+
 --------------------------

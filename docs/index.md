@@ -6,6 +6,9 @@ Below is documentation of the various use cases for the Gerbera Integration Suit
 #### [UI Test Suite](ui.md)  
 > Automatically test Gerbera Media Server and its User Interface
 
+#### [UPNP Test Suite](upnp.md)  
+> Automatically test Gerbera Media Server and its UPNP Communication
+
 #### [Local Development](dev.md)  
 > Run all containers and interact with runtime for local development
   

@@ -87,41 +87,24 @@ The **gerbera-ui** container requires all running containers for the integration
 test.  Therefore it is recommended to run the **gerbera-ui** container as part of the
 `docker-compose.ui.yml` process.
 
+-----------------------------------
+
+### gerbera-upnp
+
+The **gerbera-upnp** container runs a test suite for the Gerbera UPNP
+
+* Downloads the Gerbera integration tests
+* Launches the **gerbera-upnp** test suite
+* Exits upon completion
+
+The **gerbera-upnp** container requires additional running containers for the integration
+test.  Therefore it is recommended to run the **gerbera-upnp** container as part of the
+`docker-compose.upnp.yml` process.
+
 
 # Docker Cleanup
 
 In the process of building containers many dangling images may be left on the system.
-The `/tools/docker-cleanup.sh` script provides a simple way to cleanup old containers, images, volumes.
 
-> **WARNING**: The cleanup script **completely removes** these items from docker
-
-
-*  Cleanup Dangling Images
-    ```bash
-    $ ./tools/docker-cleanup.sh dangling
-    ```
-
-* Cleanup Exited Containers
-    ```bash
-    $ ./tools/docker-cleanup.sh exited
-    ```
-
-* Cleanup Gerbera Core
-    ```bash
-    $ ./tools/docker-cleanup.sh core
-    ```
-
-* Cleanup Gerbera UI
-    ```bash
-    $ ./tools/docker-cleanup.sh ui
-    ```
-
-* Cleanup Gerbera Home
-    ```bash
-    $ ./tools/docker-cleanup.sh home
-    ```
-
-* Cleanup Gerbera Core
-    ```bash
-    $ ./tools/docker-cleanup.sh media
-    ```
+Take a look at the [Gerbera Integration CLI](./cli.md) that provides helper scripts for cleanup and maintenance of the 
+Gerbera Integration Suite.

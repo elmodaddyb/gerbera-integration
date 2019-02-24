@@ -27,7 +27,7 @@ services:
     build:
       context: ./gerbera-upnp
       args:
-        GIT_CMD_UI: ${GIT_CMD_UI}
+        GIT_CMD_INT: ${GIT_CMD_INT}
     environment:
       - GERBERA_BASE_URL=http://gerbera-core:49152
       - GERBERA_SERVER_UUID=${GERBERA_SERVER_UUID}

@@ -8,6 +8,8 @@ $ docker-compose -f docker-compose.dev.yml build
 $ docker-compose -f docker-compose.dev.yml up
 ```
 
+> Try using the [Gerbera CLI](cli.md) ---> `gi test dev`
+
 ## Access the Gerbera UI
 
 The containers startup in development and expose the UI interface
