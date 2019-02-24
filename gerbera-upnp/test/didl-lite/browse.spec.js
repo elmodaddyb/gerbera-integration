@@ -1,7 +1,6 @@
 const {expect} = require('chai');
-const {GERBERA_SERVER_UUID} = require('../utils/test-utils');
-const ScpdUtils = require('../utils/scpd-utils');
-const DidlUtils = require('../utils/didl-utils');
+const GERBERA_SERVER_UUID = process.env.GERBERA_SERVER_UUID;
+const {DidlUtils, ScpdUtils} = require('../utils');
 const path = require('path');
 
 describe('The UPNP Content Directory Service', () => {

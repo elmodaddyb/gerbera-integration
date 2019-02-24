@@ -7,6 +7,13 @@ const multicast = {
   port: 1900
 };
 
+/**
+ * Create an MSEARCH request protocol
+ * given a multicast address with IP and PORT
+ * @param multicast
+ * @returns {string}
+ * @constructor
+ */
 const MSEARCH = (multicast) => {
   const msg = [
     'M-SEARCH * HTTP/1.1',
@@ -19,6 +26,14 @@ const MSEARCH = (multicast) => {
   return msg.join('\r\n');
 };
 
+/**
+ * Perform a MSEARCH SSDP request using the UDP client provided
+ * Waits a period of time to allow collection of responses
+ * @param client
+ * @param serviceType
+ * @param wait
+ * @returns {Promise<any>}
+ */
 const search = (client, serviceType, wait) => {
   return new Promise((resolve, reject) => {
     const endpoints = [];
@@ -42,10 +57,21 @@ const search = (client, serviceType, wait) => {
   });
 };
 
+/**
+ * Returns a UDP4 Datagram Socket
+ * @returns {Promise<*>}
+ */
 const client = async () => {
   return dgram.createSocket('udp4');
 };
 
+/**
+ * Given several UDP responses to an ssdp:discover returns those found
+ * matching USN based on the serverUUID
+ * @param responses
+ * @param serverUUID
+ * @returns {Promise<Array>}
+ */
 const filterByUSN = async (responses, serverUUID) => {
   const servers = [];
   const USN_HEADER = new RegExp('^USN: '+ serverUUID +'::urn:schemas-upnp-org:device:MediaServer:1$', 'i');
@@ -66,6 +92,12 @@ const filterByUSN = async (responses, serverUUID) => {
   }
 };
 
+/**
+ * Given a response with headers, returns full header by name
+ * @param resp
+ * @param headerName
+ * @returns {Promise<string>}
+ */
 const parseHeader = async (resp, headerName) => {
   try {
     const lines = resp.toString().split('\r\n');

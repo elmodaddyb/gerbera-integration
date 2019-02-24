@@ -1,6 +1,6 @@
 const {expect} = require('chai');
-const ScpdUtils = require('../utils/scpd-utils');
-const {hasProperArgument, GERBERA_SERVER_UUID} = require('../utils/test-utils');
+const GERBERA_SERVER_UUID = process.env.GERBERA_SERVER_UUID;
+const {ScpdUtils} = require('../utils');
 
 describe('The UPNP Connection Manager XML', () => {
   let xml;
@@ -50,7 +50,7 @@ describe('The UPNP Connection Manager XML', () => {
       it('contains an argument list', () => {
         const args = action.argumentList[0].argument;
         expect(action.name[0]).to.equal('GetCurrentConnectionIDs');
-        expect(hasProperArgument(args, 'ConnectionIDs', 'out', 'CurrentConnectionIDs')).to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'ConnectionIDs', 'out', 'CurrentConnectionIDs')).to.equal(true);
       });
     });
     describe('and has a GetCurrentConnectionInfo Action', () => {
@@ -62,14 +62,14 @@ describe('The UPNP Connection Manager XML', () => {
       it('contains an argument list', () => {
         const args = action.argumentList[0].argument;
         expect(action.name[0]).to.equal('GetCurrentConnectionInfo');
-        expect(hasProperArgument(args, 'ConnectionID', 'in', 'A_ARG_TYPE_ConnectionID'), 'ConnectionID').to.equal(true);
-        expect(hasProperArgument(args, 'RcsID', 'out', 'A_ARG_TYPE_RcsID'), 'RcsID').to.equal(true);
-        expect(hasProperArgument(args, 'AVTransportID', 'out', 'A_ARG_TYPE_AVTransportID'), 'AVTransportID').to.equal(true);
-        expect(hasProperArgument(args, 'ProtocolInfo', 'out', 'A_ARG_TYPE_ProtocolInfo'), 'ProtocolInfo').to.equal(true);
-        expect(hasProperArgument(args, 'PeerConnectionManager', 'out', 'A_ARG_TYPE_ConnectionManager'), 'PeerConnectionManager').to.equal(true);
-        expect(hasProperArgument(args, 'PeerConnectionID', 'out', 'A_ARG_TYPE_ConnectionID'), 'PeerConnectionID').to.equal(true);
-        expect(hasProperArgument(args, 'Direction', 'out', 'A_ARG_TYPE_Direction'), 'Direction').to.equal(true);
-        expect(hasProperArgument(args, 'Status', 'out', 'A_ARG_TYPE_ConnectionStatus'), 'Status').to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'ConnectionID', 'in', 'A_ARG_TYPE_ConnectionID'), 'ConnectionID').to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'RcsID', 'out', 'A_ARG_TYPE_RcsID'), 'RcsID').to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'AVTransportID', 'out', 'A_ARG_TYPE_AVTransportID'), 'AVTransportID').to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'ProtocolInfo', 'out', 'A_ARG_TYPE_ProtocolInfo'), 'ProtocolInfo').to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'PeerConnectionManager', 'out', 'A_ARG_TYPE_ConnectionManager'), 'PeerConnectionManager').to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'PeerConnectionID', 'out', 'A_ARG_TYPE_ConnectionID'), 'PeerConnectionID').to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'Direction', 'out', 'A_ARG_TYPE_Direction'), 'Direction').to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'Status', 'out', 'A_ARG_TYPE_ConnectionStatus'), 'Status').to.equal(true);
       });
     });
     describe('and has a GetProtocolInfo Action', () => {
@@ -81,8 +81,8 @@ describe('The UPNP Connection Manager XML', () => {
       it('contains an argument list', () => {
         const args = action.argumentList[0].argument;
         expect(action.name[0]).to.equal('GetProtocolInfo');
-        expect(hasProperArgument(args, 'Source', 'out', 'SourceProtocolInfo')).to.equal(true);
-        expect(hasProperArgument(args, 'Sink', 'out', 'SinkProtocolInfo')).to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'Source', 'out', 'SourceProtocolInfo')).to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'Sink', 'out', 'SinkProtocolInfo')).to.equal(true);
       });
     });
   });

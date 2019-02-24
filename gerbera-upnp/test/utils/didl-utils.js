@@ -2,8 +2,14 @@ const {parseString} = require('xml2js');
 const request = require('request');
 const fs = require('fs');
 
-
-
+/**
+ * Given a Content Directory UPNP Endpoint, send Browse Message
+ * to retrieve list of content from UPNP device.
+ * @param endpoint
+ * @param serviceType
+ * @param message
+ * @returns {Promise<any>}
+ */
 const browseContentDirectory = (endpoint, serviceType, message) => {
   return new Promise((resolve, reject) => {
     const options = {
@@ -30,6 +36,13 @@ const browseContentDirectory = (endpoint, serviceType, message) => {
   });
 };
 
+/**
+ * Given a SOAP XML Template path, injects all parameters
+ * replaces the syntax `<xml>{{key}}</xml>` with `<xml>value</xml>`
+ * @param template
+ * @param params
+ * @returns {Promise<any>}
+ */
 const templateSOAP = (template, params) => {
   return new Promise((resolve, reject) => {
     fs.readFile(template, (err, data) => {
@@ -46,6 +59,11 @@ const templateSOAP = (template, params) => {
   });
 };
 
+/**
+ * Given DIDL-Lite XML response, converts to JSON
+ * @param didlLite
+ * @returns {Promise<any>}
+ */
 const asJson = (didlLite) => {
   return new Promise((resolve, reject) => {
     parseString(didlLite, (err, result) => {
@@ -57,6 +75,12 @@ const asJson = (didlLite) => {
   });
 };
 
+/**
+ * Given DIDL-Lite response finds a container matching all parameters
+ * @param didlJson
+ * @param params
+ * @returns {*}
+ */
 const findContainer = (didlJson, params) => {
   const containers = didlJson['DIDL-Lite'].container;
   let result;
@@ -78,7 +102,6 @@ const findContainer = (didlJson, params) => {
   }
   return result;
 };
-
 
 export {
   asJson,

@@ -1,6 +1,6 @@
 const {expect} = require('chai');
-const ScpdUtils = require('../utils/scpd-utils');
-const {hasProperArgument, GERBERA_SERVER_UUID} = require('../utils/test-utils');
+const GERBERA_SERVER_UUID = process.env.GERBERA_SERVER_UUID;
+const {ScpdUtils} = require('../utils');
 
 describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
   let xml;
@@ -50,8 +50,8 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
       it('contains an argument list', () => {
         const args = action.argumentList[0].argument;
         expect(action.name[0]).to.equal('IsAuthorized');
-        expect(hasProperArgument(args, 'DeviceID', 'in', 'A_ARG_TYPE_DeviceID')).to.equal(true);
-        expect(hasProperArgument(args, 'Result', 'out', 'A_ARG_TYPE_Result')).to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'DeviceID', 'in', 'A_ARG_TYPE_DeviceID')).to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'Result', 'out', 'A_ARG_TYPE_Result')).to.equal(true);
       });
     });
     describe('and has a RegisterDevice Action', () => {
@@ -63,8 +63,8 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
       it('contains an argument list', () => {
         const args = action.argumentList[0].argument;
         expect(action.name[0]).to.equal('RegisterDevice');
-        expect(hasProperArgument(args, 'RegistrationReqMsg', 'in', 'A_ARG_TYPE_RegistrationReqMsg')).to.equal(true);
-        expect(hasProperArgument(args, 'RegistrationRespMsg', 'out', 'A_ARG_TYPE_RegistrationRespMsg')).to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'RegistrationReqMsg', 'in', 'A_ARG_TYPE_RegistrationReqMsg')).to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'RegistrationRespMsg', 'out', 'A_ARG_TYPE_RegistrationRespMsg')).to.equal(true);
       });
     });
     describe('and has a IsValidated Action', () => {
@@ -76,8 +76,8 @@ describe('The UPNP Microsoft Media Receiver Registrar XML', () => {
       it('contains an argument list', () => {
         const args = action.argumentList[0].argument;
         expect(action.name[0]).to.equal('IsValidated');
-        expect(hasProperArgument(args, 'DeviceID', 'in', 'A_ARG_TYPE_DeviceID')).to.equal(true);
-        expect(hasProperArgument(args, 'Result', 'out', 'A_ARG_TYPE_Result')).to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'DeviceID', 'in', 'A_ARG_TYPE_DeviceID')).to.equal(true);
+        expect(ScpdUtils.hasProperArgument(args, 'Result', 'out', 'A_ARG_TYPE_Result')).to.equal(true);
       });
     });
   });
