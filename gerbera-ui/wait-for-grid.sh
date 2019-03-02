@@ -15,5 +15,4 @@ while ! curl -sSL "$HUB_URL" 2>&1 \
     sleep 1
 done
 
->&2 echo "Selenium Grid is up - executing tests"
-exec $cmd
+>&2 npm run $UI_TEST_CMD
