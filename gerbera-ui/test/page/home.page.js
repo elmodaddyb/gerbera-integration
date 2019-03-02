@@ -282,6 +282,7 @@ module.exports = function (driver) {
   };
 
   this.closeToast = async () => {
+    await driver.sleep(1000); // allow for animation
     await driver.findElement(By.css('#toast button.close')).click();
     return await driver.wait(until.elementIsNotVisible(driver.findElement(By.id('toast'))), 2000);
   };
