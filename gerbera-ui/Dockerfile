@@ -31,4 +31,4 @@ WORKDIR /gerbera-integration/gerbera-ui
 RUN npm install
 RUN chmod 744 ./wait-for-grid.sh
 ENTRYPOINT [ "/gerbera-integration/gerbera-ui/wait-for-grid.sh"]
-CMD ["npm", "run", "test"]
+CMD ["npm", "run", "$UI_TEST_CMD"]

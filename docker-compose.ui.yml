@@ -45,6 +45,7 @@ services:
       - GERBERA_BASE_URL=http://gerbera-core:49152
       - HUB_HOST=selenium-hub
       - HUB_PORT=4444
+      - UI_TEST_CMD=${UI_TEST_CMD}
     depends_on:
       - selenium-hub
       - chrome
