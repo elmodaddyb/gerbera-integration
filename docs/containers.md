@@ -1,5 +1,7 @@
 # In Depth - Containers
 
+![docker-containers](./images/gerbera-integration-class-diagram.png)
+
 ### gerbera-core
 
 The **gerbera-core** container runs the Gerbera Media Server.  The container

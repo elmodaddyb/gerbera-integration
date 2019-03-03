@@ -1,5 +1,9 @@
 ## Local Development
 
+### Building a Test Case
+
+![Local Dev](./images/gerbera-integration-ui-test-workflow.png)
+
 The `docker-compose.dev.yml` runs the **gerbera-core**, **selenium-hub**, and **chrome-node** to allow a developer to test
 the **gerbera-core** and develop additional integration tests.
 

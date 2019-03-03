@@ -3,3 +3,4 @@ node_modules/
 .vscode/
 *.pyc
 __pycache__
+docs/diagrams/

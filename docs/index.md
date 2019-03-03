@@ -28,3 +28,7 @@ To run the test suite execute the following command from the root project direct
 $ python -m unittest discover -s ./test
 ```
 
+#### Python Test Suite Design
+
+![python tests](./images/gerbera-integration-python-test-suite.png)
+
