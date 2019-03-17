@@ -8,6 +8,7 @@ HUB_URL=http://$HUB_HOST:$HUB_PORT/wd/hub/status
 
 cmd="$@"
 ${cmd/\$UI_TEST_CMD/$UI_TEST_CMD}
+echo "Command to RUN -----> $cmd"
 
 while ! curl -sSL "$HUB_URL" 2>&1 \
         | jq -r '.value.ready' 2>&1 | grep "true" >/dev/null; do
