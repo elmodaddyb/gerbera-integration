@@ -1,12 +1,12 @@
 const {expect} = require('chai');
-const {suite} = require('selenium-webdriver/testing');
 const {webServer, newRemoteDriver} = require('./test-utils');
+const {audio} = require('./test-data');
 let driver;
 
 const LoginPage = require('./page/login.page');
 const HomePage = require('./page/home.page');
 
-suite(() => {
+describe('UI Suite', () => {
   let loginPage;
   let homePage;
 
@@ -50,17 +50,17 @@ suite(() => {
         await homePage.clickMenu('nav-db');
         await homePage.clickTree('Audio');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(10);
+        expect(tree.length).to.equal(audio.navAudioTreeItems);
       });
 
       it('mp3 audio creates a container called `All - full name`', async () => {
         await homePage.clickTree('All - full name');
         const items = await homePage.items();
-        expect(items.length).to.equal(1);
+        expect(items.length).to.equal(audio.allFullNameItems);
       });
 
       it('mp3 audio is available by the full name', async () => {
-        const item = await homePage.getItem(0);
+        const item = await homePage.getItem(audio.firstItem);
         const text = await item.getText();
         expect(text).to.equal('- crowd-cheering.mp3');
       });
@@ -68,11 +68,11 @@ suite(() => {
       it('mp3 audio creates a container called `All Audio`', async () => {
         await homePage.clickTree('All Audio');
         const items = await homePage.items();
-        expect(items.length).to.equal(1);
+        expect(items.length).to.equal(audio.allAudioItems);
       });
 
       it('mp3 audio is available by the title name', async () => {
-        const item = await homePage.getItem(0);
+        const item = await homePage.getItem(audio.firstItem);
         const text = await item.getText();
         expect(text).to.equal('crowd-cheering.mp3');
       });
@@ -81,18 +81,18 @@ suite(() => {
         await homePage.clickTree('Artists');
         const artists = await homePage.getTreeItem('Artists');
         let tree = await homePage.treeItems();
-        expect(tree.length).to.equal(11);
+        expect(tree.length).to.equal(audio.artistsItems);
 
         await homePage.expandBelow(artists, 'Unknown');
         tree = await homePage.treeItems();
-        expect(tree.length).to.equal(14);
+        expect(tree.length).to.equal(audio.unknownItems);
 
         const meArtist = await homePage.getTreeItem('Unknown');
         await homePage.expandBelow(meArtist, 'All Songs');
         tree = await homePage.treeItems();
-        expect(tree.length).to.equal(14);
+        expect(tree.length).to.equal(audio.allSongs);
 
-        const item = await homePage.getItem(0);
+        const item = await homePage.getItem(audio.firstItem);
         const text = await item.getText();
         expect(text).to.equal('crowd-cheering.mp3');
       });
@@ -102,18 +102,18 @@ suite(() => {
       it('allows user to delete the tree item from the PC Directory', async () => {
         await homePage.clickMenu('nav-db');
         let tree = await homePage.treeItems();
-        expect(tree.length).to.equal(3);
+        expect(tree.length).to.equal(audio.navDbTreeItems);
 
         await homePage.clickTree('PC Directory');
         tree = await homePage.treeItems();
-        expect(tree.length).to.equal(4);
+        expect(tree.length).to.equal(audio.pcDirectoryItems);
 
         await homePage.clickTree('gerbera-media');
         tree = await homePage.treeItems();
-        expect(tree.length).to.equal(4);
+        expect(tree.length).to.equal(audio.gerberaTreeItems);
 
         const items = await homePage.items();
-        expect(items.length).to.equal(1);
+        expect(items.length).to.equal(audio.gerberaMediaItems);
 
         await homePage.clickTrailDelete();
         await homePage.closeToast();

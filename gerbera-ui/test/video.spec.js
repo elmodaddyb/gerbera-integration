@@ -1,12 +1,12 @@
 const {expect} = require('chai');
-const {suite} = require('selenium-webdriver/testing');
 const {webServer, newRemoteDriver} = require('./test-utils');
+const {video} = require('./test-data');
 let driver;
 
 const LoginPage = require('./page/login.page');
 const HomePage = require('./page/home.page');
 
-suite(() => {
+describe.only('UI Suite', () => {
   let loginPage;
   let homePage;
 
@@ -50,17 +50,17 @@ suite(() => {
         await homePage.clickMenu('nav-db');
         await homePage.clickTree('Video');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(5);
+        expect(tree.length).to.equal(video.navDbVideoTreeItems);
       });
 
       it('mp4 video creates a container called `All Video`', async () => {
         await homePage.clickTree('All Video');
         const items = await homePage.items();
-        expect(items.length).to.equal(1);
+        expect(items.length).to.equal(video.allVideoItems);
       });
 
       it('mp4 video is available by the file name', async () => {
-        const item = await homePage.getItem(0);
+        const item = await homePage.getItem(video.firstItem);
         const text = await item.getText();
         expect(text).to.equal('big_buck_bunny_720p_1mb.mp4');
       });
@@ -69,10 +69,10 @@ suite(() => {
         await homePage.clickTree('Directories');
         const directories = await homePage.getTreeItem('Directories');
         let tree = await homePage.treeItems();
-        expect(tree.length).to.equal(6);
+        expect(tree.length).to.equal(video.videoDirectories);
 
         await homePage.expandBelow(directories, 'gerbera-media');
-        const item = await homePage.getItem(0);
+        const item = await homePage.getItem(video.firstItem);
         const text = await item.getText();
         expect(text).to.equal('big_buck_bunny_720p_1mb.mp4');
       });
@@ -82,18 +82,18 @@ suite(() => {
       it('allows user to delete the tree item from the PC Directory', async () => {
         await homePage.clickMenu('nav-db');
         let tree = await homePage.treeItems();
-        expect(tree.length).to.equal(3);
+        expect(tree.length).to.equal(video.trailDbItems);
 
         await homePage.clickTree('PC Directory');
         tree = await homePage.treeItems();
-        expect(tree.length).to.equal(4);
+        expect(tree.length).to.equal(video.trailPcDirectoryTreeItems);
 
         await homePage.clickTree('gerbera-media');
         tree = await homePage.treeItems();
-        expect(tree.length).to.equal(4);
+        expect(tree.length).to.equal(video.trailGerberaMediaTreeItems);
 
         const items = await homePage.items();
-        expect(items.length).to.equal(1);
+        expect(items.length).to.equal(video.trailGerberaMediaItems);
 
         await homePage.clickTrailDelete();
         await homePage.closeToast();

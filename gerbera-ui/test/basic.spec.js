@@ -1,12 +1,12 @@
 const {expect} = require('chai');
-const {suite} = require('selenium-webdriver/testing');
 const {webServer, newRemoteDriver} = require('./test-utils');
+const {basic} = require('./test-data');
 let driver;
 
 const LoginPage = require('./page/login.page');
 const HomePage = require('./page/home.page');
 
-suite(() => {
+describe('UI Suite', () => {
   let loginPage;
   let homePage;
 
@@ -46,13 +46,13 @@ suite(() => {
       it('loads the parent database container and PC Directory when clicking Database', async () => {
         await homePage.clickMenu('nav-db');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(2);
+        expect(tree.length).to.equal(basic.navDbTreeItems);
       });
 
       it('loads file system and all child directories', async () => {
         await homePage.clickMenu('nav-fs');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(25);
+        expect(tree.length).to.equal(basic.navFsTreeItems);
       });
     });
 
@@ -78,16 +78,16 @@ suite(() => {
         await homePage.clickMenu('nav-db');
         await homePage.clickTree('PC Directory');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(4);
+        expect(tree.length).to.equal(basic.pcDirectoryTreeItems);
         await homePage.clickTree('gerbera-media');
         const items = await homePage.items();
-        expect(items.length).to.equal(1);
+        expect(items.length).to.equal(basic.gerberaItems);
       });
 
       it('when clicked shows the items added', async () => {
         await homePage.clickTree('gerbera-media');
         const items = await homePage.items();
-        expect(items.length).to.equal(1);
+        expect(items.length).to.equal(basic.gerberaMediaItems);
       });
     });
 
@@ -118,7 +118,7 @@ suite(() => {
       });
 
       it('and the value saves to the gerbera database and can be seen on subsequent edit', async () => {
-        await homePage.editItem(0);
+        await homePage.editItem(basic.firstItem);
 
         let value = await homePage.editOverlayFieldValue('editDesc');
         expect(value).to.equal('A Description');
