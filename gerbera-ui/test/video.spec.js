@@ -1,16 +1,17 @@
 const {expect} = require('chai');
-const {webServer, newRemoteDriver} = require('./utils/test-utils');
-const {video} = require('./utils/test-data');
+const {webServer, loadTestData, newRemoteDriver} = require('./utils/test-utils');
 let driver;
 
 const HomePage = require('./page/home.page');
 
-describe('UI Suite', () => {
+describe('UI Suite @Simple', () => {
   let homePage;
+  let testData;
 
   before(async () => {
     driver = await newRemoteDriver();
     homePage = new HomePage(driver);
+    testData = loadTestData('video');
   });
 
   after(() => driver && driver.quit());
@@ -46,15 +47,15 @@ describe('UI Suite', () => {
         await homePage.clickMenu('nav-db');
         await homePage.clickTree('Video');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(video.navDbVideoTreeItems);
+        expect(tree.length).to.equal(testData.navDbVideoTreeItems);
       });
       it('mp4 video creates a container called `All Video`', async () => {
         await homePage.clickTree('All Video');
         const items = await homePage.items();
-        expect(items.length).to.equal(video.allVideoItems);
+        expect(items.length).to.equal(testData.allVideoItems);
       });
       it('mp4 video is available by the file name', async () => {
-        const item = await homePage.getItem(video.firstItem);
+        const item = await homePage.getItem(testData.firstItem);
         const text = await item.getText();
         expect(text).to.equal('big_buck_bunny_720p_1mb.mp4');
       });
@@ -62,11 +63,11 @@ describe('UI Suite', () => {
         await homePage.clickTree('Directories');
         directories = await homePage.getTreeItem('Directories');
         let tree = await homePage.treeItems();
-        expect(tree.length).to.equal(video.videoDirectories);
+        expect(tree.length).to.equal(testData.videoDirectories);
       });
       it('contains a container matching `gerbera-media`', async () => {
         await homePage.expandBelow(directories, 'gerbera-media');
-        const item = await homePage.getItem(video.firstItem);
+        const item = await homePage.getItem(testData.firstItem);
         const text = await item.getText();
         expect(text).to.equal('big_buck_bunny_720p_1mb.mp4');
       });
@@ -77,21 +78,21 @@ describe('UI Suite', () => {
       it('loads the database menu', async () => {
         await homePage.clickMenu('nav-db');
         tree = await homePage.treeItems();
-        expect(tree.length).to.equal(video.trailDbItems);
+        expect(tree.length).to.equal(testData.trailDbItems);
       });
       it('loads the PC Directory when clicked', async () => {
         await homePage.clickTree('PC Directory');
         tree = await homePage.treeItems();
-        expect(tree.length).to.equal(video.trailPcDirectoryTreeItems);
+        expect(tree.length).to.equal(testData.trailPcDirectoryTreeItems);
       });
       it('loads the gerbera-media when clicked', async () => {
         await homePage.clickTree('gerbera-media');
         tree = await homePage.treeItems();
-        expect(tree.length).to.equal(video.trailGerberaMediaTreeItems);
+        expect(tree.length).to.equal(testData.trailGerberaMediaTreeItems);
       });
       it('loads the gerbera-media items', async () => {
         const items = await homePage.items();
-        expect(items.length).to.equal(video.trailGerberaMediaItems);
+        expect(items.length).to.equal(testData.trailGerberaMediaItems);
       });
       it('deletes the item from the trail', async () => {
         await homePage.clickTrailDelete();

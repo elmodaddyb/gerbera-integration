@@ -1,16 +1,17 @@
 const {expect} = require('chai');
-const {webServer, newRemoteDriver} = require('./utils/test-utils');
-const {basic} = require('./utils/test-data');
+const {webServer, loadTestData, newRemoteDriver} = require('./utils/test-utils');
 let driver;
 
 const HomePage = require('./page/home.page');
 
-describe('UI Suite', () => {
+describe('UI Suite @Simple', () => {
   let homePage;
+  let testData;
 
   before(async () => {
     driver = await newRemoteDriver();
     homePage = new HomePage(driver);
+    testData = loadTestData('basic');
   });
 
   after(() => driver && driver.quit());
@@ -39,12 +40,12 @@ describe('UI Suite', () => {
       it('loads the parent database container and PC Directory when clicking Database', async () => {
         await homePage.clickMenu('nav-db');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(basic.navDbTreeItems);
+        expect(tree.length).to.equal(testData.navDbTreeItems);
       });
       it('loads file system and all child directories', async () => {
         await homePage.clickMenu('nav-fs');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(basic.navFsTreeItems);
+        expect(tree.length).to.equal(testData.navFsTreeItems);
       });
     });
 
@@ -68,18 +69,18 @@ describe('UI Suite', () => {
         await homePage.clickMenu('nav-db');
         await homePage.clickTree('PC Directory');
         const tree = await homePage.treeItems();
-        expect(tree.length).to.equal(basic.pcDirectoryTreeItems);
+        expect(tree.length).to.equal(testData.pcDirectoryTreeItems);
       });
       it('gerbera-media when clicked shows items', async () => {
         await homePage.clickTree('gerbera-media');
         const items = await homePage.items();
-        expect(items.length).to.equal(basic.gerberaItems);
+        expect(items.length).to.equal(testData.gerberaItems);
       });
 
       it('when clicked shows the items added', async () => {
         await homePage.clickTree('gerbera-media');
         const items = await homePage.items();
-        expect(items.length).to.equal(basic.gerberaMediaItems);
+        expect(items.length).to.equal(testData.gerberaMediaItems);
       });
     });
 
@@ -111,7 +112,7 @@ describe('UI Suite', () => {
         await homePage.submitEditor();
       });
       it('and the value saves to the gerbera database and can be seen on subsequent edit', async () => {
-        await homePage.editItem(basic.firstItem);
+        await homePage.editItem(testData.firstItem);
 
         let value = await homePage.editOverlayFieldValue('editDesc');
         expect(value).to.equal('A Description');
