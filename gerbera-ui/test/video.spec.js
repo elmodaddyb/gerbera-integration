@@ -6,7 +6,7 @@ let driver;
 const LoginPage = require('./page/login.page');
 const HomePage = require('./page/home.page');
 
-describe.only('UI Suite', () => {
+describe('UI Suite', () => {
   let loginPage;
   let homePage;
 
