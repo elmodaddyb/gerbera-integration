@@ -16,6 +16,7 @@ RUN useradd --system gerbera
 RUN mkdir /gerbera-home
 WORKDIR /gerbera-home
 COPY ./config.default.xml ./
+COPY ./config.streaming.xml ./
 RUN chown gerbera:gerbera -Rv /gerbera-home
 VOLUME /gerbera-home
 
