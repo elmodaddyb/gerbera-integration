@@ -9,8 +9,8 @@ const audio = {
   allSongs           : 14,
   navDbTreeItems     : 3,
   pcDirectoryItems   : 4,
-  gerberaTreeItems   : 1,
-  gerberaMediaItems  : 4
+  gerberaTreeItems   : 4,
+  gerberaMediaItems  : 1
 };
 
 const basic = {
@@ -29,7 +29,7 @@ const video = {
   videoDirectories: 6,
   trailDbItems: 3,
   trailPcDirectoryTreeItems: 4,
-  trailGerberaMediaTreeItems: 3,
+  trailGerberaMediaTreeItems: 4,
   trailGerberaMediaItems: 1,
 
 };
