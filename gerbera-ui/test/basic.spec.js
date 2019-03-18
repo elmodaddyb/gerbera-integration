@@ -4,7 +4,7 @@ let driver;
 
 const HomePage = require('./page/home.page');
 
-describe('UI Suite @Simple', () => {
+describe('UI Suite @Default', () => {
   let homePage;
   let testData;
 

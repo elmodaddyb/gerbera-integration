@@ -3,8 +3,8 @@
   "version": "0.0.1",
   "description": "Gerbera UI Integration Test",
   "scripts": {
-    "simple": "SELENIUM_BROWSER=chrome mocha --require babel-polyfill --require babel-register -g \"@Simple\"",
-    "streaming": "SELENIUM_BROWSER=chrome mocha --require babel-polyfill --require babel-register -g \"@Simple|@Streaming\""
+    "default": "mocha -g \"@Default\"",
+    "streaming": "mocha -g \"@Default|@Streaming\""
   },
   "config": {
     "webserver": {

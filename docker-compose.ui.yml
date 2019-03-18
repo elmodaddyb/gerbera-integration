@@ -47,6 +47,7 @@ services:
       - HUB_PORT=4444
       - UI_TEST_CMD=${UI_TEST_CMD}
       - UI_TEST_DATA=${UI_TEST_DATA}
+      - SELENIUM_BROWSER=${SELENIUM_BROWSER}
     depends_on:
       - selenium-hub
       - chrome

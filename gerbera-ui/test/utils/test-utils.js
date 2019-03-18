@@ -14,7 +14,9 @@ const newRemoteDriver = async () => {
 };
 
 const loadTestData = (dataName) => {
-  return require(__dirname + '/data/' + testData)[dataName];
+  const testDataFile = __dirname + '/data/' + testData;
+  console.log('\tLoading Test Data for: ' + dataName + ' from: ' + testDataFile);
+  return require(testDataFile)[dataName];
 };
 
 module.exports = {
