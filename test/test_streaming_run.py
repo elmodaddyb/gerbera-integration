@@ -6,7 +6,10 @@ class BuildDockerStreaming(unittest.TestCase):
 
     def test_runDockerUpnpTests(self):
         my_env = os.environ.copy()
-        my_env["CMD_CORE"] = "/usr/local/bin/gerbera -c /gerbera-home/config.streaming.xml"
+        my_env["CORE_LAUNCH_CMD"] = "/usr/local/bin/gerbera -c /gerbera-home/config.streaming.xml"
+        my_env["UI_TEST_CMD"]     = "streaming"
+        my_env["UI_TEST_DATA"]    = "streaming.json"
+
         giCmd = ['/usr/local/bin/python3', 'gerbera-cli.py', 'test', 'ui']
         process = Popen(giCmd, stdout=PIPE, stderr=PIPE, cwd=r'./tools', env=my_env)
         stdout, stderr = process.communicate()
