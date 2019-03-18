@@ -3,11 +3,11 @@ services:
   core:
     container_name: gerbera-core
     environment:
-      - CORE_CMD=${CORE_CMD}
+      - CORE_LAUNCH_CMD=${CORE_LAUNCH_CMD}
     build:
       context: ./gerbera-core
       args:
-        GIT_CMD_CORE: ${GIT_CMD_CORE}
+        CORE_GIT_CMD: ${CORE_GIT_CMD}
     ports:
       - "49152:49152"
       - "1900:1900/udp"
@@ -40,7 +40,7 @@ services:
     build:
       context: ./gerbera-ui
       args:
-        GIT_CMD_INT: ${GIT_CMD_INT}
+        INT_GIT_CMD: ${INT_GIT_CMD}
     environment:
       - GERBERA_BASE_URL=http://gerbera-core:49152
       - HUB_HOST=selenium-hub

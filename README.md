@@ -59,9 +59,9 @@ The `docker-compose` system uses the `.env` file to inject the GIT commands used
 > This allows a developer to point to a forked version of the code, or a specific branch.
 
 1. Open the `.env` file at the root of the project
-2. Modify the `GIT_CMD_CORE` variable to change the source code path checkout for the **gerbera-core** container
+2. Modify the `CORE_GIT_CMD` variable to change the source code path checkout for the **gerbera-core** container
     * Do this when you want to point to new Gerbera Media Server code
-3. Modify the `GIT_CMD_INT` variable to change the source code path checkout for the **gerbera-ui** or **gerbera-upnp** container
+3. Modify the `INT_GIT_CMD` variable to change the source code path checkout for the **gerbera-ui** or **gerbera-upnp** container
     * Do this when you want to point to new integration test code
 
 > **NOTE** Changing the `git commands` requires a rebuild of the containers.  

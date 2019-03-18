@@ -1,5 +1,5 @@
 const {expect} = require('chai');
-const GERBERA_SERVER_UUID = process.env.GERBERA_SERVER_UUID;
+const CORE_SERVER_UUID = process.env.CORE_SERVER_UUID;
 const {ScpdUtils} = require('../utils');
 
 describe('The UPNP Content Directory XML', () => {
@@ -10,7 +10,7 @@ describe('The UPNP Content Directory XML', () => {
     ScpdUtils.lookup({
       serviceType: 'urn:schemas-upnp-org:device:MediaServer:1',
       waitTime: 5000,
-      udn: GERBERA_SERVER_UUID,
+      udn: CORE_SERVER_UUID,
       serviceId: 'urn:upnp-org:serviceId:ContentDirectory',
       header: 'LOCATION'
     }).then((scpd) => {

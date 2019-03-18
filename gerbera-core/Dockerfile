@@ -16,8 +16,8 @@ ENV SHELL /bin/bash
 ##--------------------------------------
 RUN mkdir /gerbera
 WORKDIR /gerbera
-ARG GIT_CMD_CORE
-RUN $GIT_CMD_CORE
+ARG CORE_GIT_CMD
+RUN $CORE_GIT_CMD
 
 RUN mkdir build
 WORKDIR /gerbera/build
@@ -48,5 +48,5 @@ RUN chown gerbera:gerbera -Rv /gerbera-home
 VOLUME /gerbera-home
 USER gerbera
 
-ENTRYPOINT $CORE_CMD
+ENTRYPOINT $CORE_LAUNCH_CMD
 EXPOSE 49152/tcp 1900/udp

@@ -1,5 +1,5 @@
 const {expect} = require('chai');
-const GERBERA_SERVER_UUID = process.env.GERBERA_SERVER_UUID;
+const CORE_SERVER_UUID = process.env.CORE_SERVER_UUID;
 const {SSDPClient} = require('../utils');
 
 describe('Gerbera SSDP Broadcast', () => {
@@ -7,7 +7,7 @@ describe('Gerbera SSDP Broadcast', () => {
     it('returns the LOCATION header of the Gerbera MediaServer', (done) => {
       SSDPClient.client()
         .then(client => SSDPClient.search(client, 'urn:schemas-upnp-org:device:MediaServer:1', 5000))
-        .then(responses => SSDPClient.filterByUSN(responses, GERBERA_SERVER_UUID))
+        .then(responses => SSDPClient.filterByUSN(responses, CORE_SERVER_UUID))
         .then(servers => SSDPClient.parseHeader(servers[0], 'LOCATION'))
         .then((locationHdr) => {
           console.log('\tSCPD XML Location --> '+ locationHdr);
