@@ -4,7 +4,7 @@ let driver;
 
 const HomePage = require('./page/home.page');
 
-describe.only('UI Suite @Streaming', () => {
+describe('UI Suite @Streaming', () => {
   let homePage;
   let testData;
 
@@ -53,12 +53,12 @@ describe.only('UI Suite @Streaming', () => {
     it('shows playlist item name parsed as items', async () => {
       const item = await homePage.getItem(testData.firstItem);
       const text = await item.getText();
-      expect(text).to.equal('(#1 - 14/500) Classic Rock 109');
+      expect(text).to.match(/\(.*\)\sClassic\sRock\s109/);
     });
     it('each playlist item references an external url', async () => {
       const item = await homePage.getItemLink(testData.firstItem);
       const href = await item.getAttribute('href');
-      expect(href).to.equal('http://107.191.38.213:10042/stream');
+      expect(href).to.match(/http:\/\/.*\/stream/);
     });
   });
   describe('Dance Wave Playlist items', () => {
@@ -75,7 +75,7 @@ describe.only('UI Suite @Streaming', () => {
     it('each playlist item references an external url', async () => {
       const item = await homePage.getItemLink(testData.firstItem);
       const href = await item.getAttribute('href');
-      expect(href).to.equal('http://78.31.65.20:8080/dance.mp3');
+      expect(href).to.match(/http:\/\/.*\/dance.mp3/);
     });
   });
   describe('SmoothLounge.com Global Playlist items', () => {
@@ -87,12 +87,12 @@ describe.only('UI Suite @Streaming', () => {
     it('shows playlist item name parsed as items', async () => {
       const item = await homePage.getItem(testData.firstItem);
       const text = await item.getText();
-      expect(text).to.equal('(#1 - 16/1000) SmoothLounge.com Global');
+      expect(text).to.match(/\(.*\)\sSmoothLounge.com\sGlobal/);
     });
     it('each playlist item references an external url', async () => {
       const item = await homePage.getItemLink(testData.firstItem);
       const href = await item.getAttribute('href');
-      expect(href).to.equal('http://149.56.155.210/stream');
+      expect(href).to.match(/http:\/\/.*\/stream/);
     });
   });
 });
