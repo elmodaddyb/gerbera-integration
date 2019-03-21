@@ -66,6 +66,12 @@ module.exports = function (driver) {
     return items[idx];
   };
 
+  this.getItemLink = async (idx) => {
+    await driver.wait(until.elementLocated(By.id('datagrid'), 5000));
+    const items = await driver.findElements(By.className('grb-item-url'));
+    return items[idx];
+  };
+
   this.getItemByText = async (text) => {
     await driver.wait(until.elementLocated(By.id('datagrid'), 5000));
     const datagrid = await driver.findElement(By.id('datagrid'));

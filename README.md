@@ -46,6 +46,8 @@ You can run the UI Integration test manually:
 /gerbera-ui/$ export HUB_HOST=localhost
 /gerbera-ui/$ export HUB_PORT=4444
 /gerbera-ui/$ export GERBERA_BASE_URL=http://<gerbera-core-IP-address>:49152
+/gerbera-ui/$ export UI_TEST_DATA=default.json
+/gerbera-ui/$ export SELENIUM_BROWSER=chrome
 /gerbera-ui/$ npm run test
 ```
 
@@ -65,4 +67,4 @@ The `docker-compose` system uses the `.env` file to inject the GIT commands used
     * Do this when you want to point to new integration test code
 
 > **NOTE** Changing the `git commands` requires a rebuild of the containers.  
-> See [docker-cleanup](docs/containers.md) script for more details on how to cleanup old containers.
+> See [gerbera cli](docs/containers.md) script for more details on how to cleanup old containers.

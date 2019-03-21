@@ -29,5 +29,13 @@
     "trailPcDirectoryTreeItems": 5,
     "trailGerberaMediaTreeItems": 5,
     "trailGerberaMediaItems": 1
+  },
+  "streaming" : {
+    "firstItem": 0,
+    "navPlaylistTree": 4,
+    "navRadioPlaylistTree": 7,
+    "classicRockItems": 13,
+    "danceWaveItems": 1,
+    "smoothLoungeItems": 2
   }
 }
