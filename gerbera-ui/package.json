@@ -27,7 +27,7 @@
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",
     "chai": "^4.2.0",
-    "lodash": ">=4.17.13",
+    "lodash": ">=4.17.21",
     "mocha": "^5.2.0",
     "selenium-webdriver": "^4.0.0-alpha.1"
   }
